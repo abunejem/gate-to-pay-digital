@@ -77,18 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Gate to Pay — Financial infrastructure for MENA" },
+      { title: "Gate to Pay — The financial infrastructure behind connected businesses" },
       {
         name: "description",
         content:
-          "Gate to Pay is a Central Bank of Jordan licensed financial infrastructure company. Mastercard Principal Member enabling issuing, acquiring, and money movement across MENA since 2014.",
+          "Issue cards, open wallets, accept payments, and move money across local and global rails — on one regulated platform. Central Bank of Jordan licensed. Mastercard Principal Member. Serving businesses, merchants, platforms, fintechs, banks, government and communities.",
       },
       { name: "author", content: "Gate to Pay" },
-      { property: "og:title", content: "Gate to Pay — Financial infrastructure for MENA" },
+      { property: "og:title", content: "Gate to Pay — The financial infrastructure behind connected businesses" },
       {
         property: "og:description",
         content:
-          "Central Bank of Jordan licensed. Mastercard Principal Member. Issuing, acquiring, and money movement across MENA since 2014.",
+          "One regulated platform for cards, wallets, acceptance and payouts across local and global rails. CBJ licensed since 2014. Mastercard Principal Member.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
