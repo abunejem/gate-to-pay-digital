@@ -46,7 +46,7 @@ export function StickyNav() {
         <nav className="hidden lg:flex items-center gap-1 ms-4">
           <MegaMenu
             label={t("nav.products")}
-            width={880}
+            width={720}
             featured={{
               eyebrow: "Featured",
               icon: Cpu,
