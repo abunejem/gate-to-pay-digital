@@ -12,6 +12,7 @@ import { PricingTable } from "@/components/gtp/PricingTable";
 import { Reveal } from "@/components/gtp/Reveal";
 import { Pill, GlassPanel } from "@/components/gtp/primitives";
 import { Logo } from "@/components/gtp/Logo";
+import { useT } from "@/lib/i18n";
 import { ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -52,13 +53,14 @@ const API_SAMPLE = `{
   "status": "succeeded",
   "network": "mastercard",
   "merchant": {
-    "id": "mch_arab_bank_02",
+    "id": "mch_example_02",
     "country": "JO"
   },
   "created": "2026-06-24T14:22:19Z"
 }`;
 
 function Showcase() {
+  const t = useT();
   return (
     <div className="min-h-screen bg-background text-foreground">
       <StickyNav />
@@ -75,29 +77,28 @@ function Showcase() {
         <div className="mx-auto max-w-5xl text-center">
           <Reveal>
             <Pill tone="primary" className="mb-6">
-              Component library · v1
+              {t("hero.eyebrow")}
             </Pill>
           </Reveal>
           <Reveal delay={80}>
             <h1 className="text-display font-semibold">
-              Financial infrastructure,
-              <br />
-              engineered in <span className="text-primary dark:glow-text">Jordan</span>.
+              {t("hero.h1Before")}
+              <span className="text-primary dark:glow-text">{t("hero.h1Highlight")}</span>
+              {t("hero.h1After")}
             </h1>
           </Reveal>
           <Reveal delay={160}>
             <p className="mx-auto mt-6 max-w-2xl text-body-lg text-muted-foreground">
-              Central Bank of Jordan licensed. Mastercard Principal Member. Visa & UnionPay enabled.
-              Issuing, acquiring, and money movement for banks, PSPs, and fintechs across MENA.
+              {t("hero.sub")}
             </p>
           </Reveal>
           <Reveal delay={240}>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Button size="lg">
-                Start building <ArrowRight size={16} />
+                {t("hero.ctaPrimary")} <ArrowRight size={16} />
               </Button>
               <Button size="lg" variant="ghost">
-                Talk to sales
+                {t("hero.ctaSecondary")}
               </Button>
             </div>
           </Reveal>
@@ -123,9 +124,9 @@ function Showcase() {
       <Section id="bento" title="Bento tiles" desc="Glass in dark, elevated card in light. Hover for neon edge / soft shadow.">
         <div className="grid gap-4 md:grid-cols-3">
           {[
-            { t: "Issuing", d: "Physical & virtual cards with programmatic control." },
-            { t: "Acquiring", d: "Card acceptance for merchants across MENA." },
-            { t: "Payouts", d: "Global disbursement with real-time settlement." },
+            { t: "Issue", d: "Cards and wallets — programmatic, regulated." },
+            { t: "Collect", d: "Merchant acceptance and platform payments." },
+            { t: "Move", d: "Payouts and settlement across local and global rails." },
           ].map((x) => (
             <BentoTile key={x.t}>
               <div className="text-h3 font-medium">{x.t}</div>
@@ -138,18 +139,18 @@ function Showcase() {
         </div>
       </Section>
 
-      {/* Stats */}
+      {/* Stats — approved figures only */}
       <Section id="stats" title="Stat cards" desc="Count-up on scroll; instant final value under reduced motion.">
         <div className="grid gap-8 md:grid-cols-4">
-          <StatCard value={11} label="Years CBJ-licensed" suffix="+" />
-          <StatCard value={42} label="Financial institutions served" />
-          <StatCard value={8.7} decimals={1} label="Bn JOD processed / year" suffix="B" />
-          <StatCard value={99.99} decimals={2} label="Platform uptime %" suffix="%" />
+          <StatCard value={1} label="Processed transactions" suffix="B+" />
+          <StatCard value={160} label="Customers served" suffix="K+" />
+          <StatCard value={200} label="Corporate clients" suffix="+" />
+          <StatCard value={17} label="Countries served" suffix="+" />
         </div>
       </Section>
 
       {/* Client strip */}
-      <Section id="clients" title="Client logo strip" desc="Grayscale idle, brand color on hover. Marquee halts under reduced motion.">
+      <Section id="clients" title="Client logo strip" desc="Confirmed clients only. Text placeholders shown until logo assets are uploaded.">
         <ClientLogoStrip />
       </Section>
 
@@ -192,8 +193,8 @@ function Showcase() {
         </GlassPanel>
       </Section>
 
-      {/* Pricing */}
-      <Section id="pricing" title="Pricing table" desc="Currency toggle switches JOD ↔ USD instantly.">
+      {/* Pricing — placeholder */}
+      <Section id="pricing" title="Pricing table" desc="Awaiting approved fee tables and limits.">
         <PricingTable />
       </Section>
 
@@ -204,7 +205,7 @@ function Showcase() {
             items={[
               { q: "Is Gate to Pay regulated?", a: "Yes — licensed by the Central Bank of Jordan since 2014." },
               { q: "Which card networks do you support?", a: "Mastercard (Principal Member), Visa, and UnionPay." },
-              { q: "Which regions can we operate in?", a: "MENA-first with global payout coverage through partner rails." },
+              { q: "Who does Gate to Pay serve?", a: "Businesses, merchants, platforms, fintechs, banks, government, and communities." },
             ]}
           />
         </div>

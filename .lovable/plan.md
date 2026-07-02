@@ -1,116 +1,79 @@
-# Gate to Pay — Foundation & Component Library (v2)
+## Fixes before page build
 
-Scope: design system, theming, i18n scaffold, brand assets, reusable component library. No marketing pages yet.
+### 1. Mega-menu opacity bug (`src/components/gtp/MegaMenu.tsx`)
+Replace the current `.glass` panel with a solid, elevated surface:
+- Dark: `background: rgba(8, 38, 56, 0.98)` (near-opaque `--elevated`), `backdrop-filter: blur(24px) saturate(140%)`, `border: 1px solid rgba(34,227,255,0.25)` (neon-tint), strong drop shadow.
+- Light: `background: #FFFFFF`, `border: 1px solid var(--border)`, soft shadow (`0 12px 40px rgba(2,42,68,0.12)`).
+- Add a full-viewport transparent scrim behind the open panel (pointer-events transparent) to reinforce stacking and close-on-outside-click.
+- Raise stacking: menu wrapper `z-50`, panel `z-[60]`; ensure `StickyNav` header creates the stacking context (`isolation: isolate`) so no hero/section layer intercepts.
+- Verify legibility by opening the menu over the hero and over a story panel in both themes.
 
-## 1. SSR / prerender
+### 2. Restore approved hero copy (`src/routes/index.tsx` + `src/lib/i18n/en.ts`)
+- Eyebrow pill: `Regulated financial infrastructure · Jordan`
+- H1: `The financial infrastructure behind ` + `<span class="text-primary dark:glow-text">connected businesses</span>` + `.`
+- Sub: `Issue cards, open wallets, accept payments, and move money across local and global rails — on one regulated platform. We hold the licenses and build the rails, so you don't have to.`
+- Primary CTA `Get started`; secondary `Explore the platform`.
+- Nav sign-in label → `Client Login` (update `nav.signIn` in `en.ts`).
 
-TanStack Start SSR stays on; all text renders server-side into initial HTML.
+### 3. Stat cards — approved figures only
+Replace the four invented stats with:
+- `1B+` Processed transactions
+- `160K+` Customers served
+- `200+` Corporate clients
+- `17+` Countries served
 
-## 2. Brand assets
+Since values include `B`/`K` suffixes, render as pre-formatted strings. Extend `StatCard` to accept an optional `displayValue: string` that skips the count-up (or accepts a suffix-aware format). Simpler: add a `formatted` prop; when set, the count-up animates numeric portion `1 → target` and appends the suffix string. For `1B+`, `160K+`, `200+`, `17+`, animate the leading integer and append the suffix. Reduced-motion shows the final string immediately.
 
-- Add `logo-horizontal.svg` (has gray text — for **light** theme), `logo-vertical.svg`, `logo-icon.svg` to `src/assets/`.
-- Create a **dark-theme logo variant** with white text (`#EAF6FA`) by editing a copy of `logo-horizontal.svg` — swap `.st0 { fill: #606161 }` for white. Saved as `logo-horizontal-dark.svg`.
-- `<Logo />` component picks the correct variant from `useTheme()`.
-- Favicon: `public/favicon.svg` (from `logo-icon.svg`) **and** `public/favicon-32.png` fallback (generated via imagegen or rasterized). Delete default `public/favicon.ico`. Wire both `<link rel="icon">` entries in `__root.tsx`.
-- Root `head()` gets real Gate to Pay title/description/OG tags.
+### 4. Client logo strip (`src/components/gtp/ClientLogoStrip.tsx`)
+Replace the CLIENTS array with: Samsung, Orange Money, Equiti, ATFX, INGOT, CFI, CASHU, Altibbi, NatHealth. Keep text-badge placeholders until the user uploads logo files (each badge visibly labeled as the client name; swap-in will be a later pass once assets arrive).
 
-## 3. Design tokens (`src/styles.css`)
+### 5. Pricing — placeholder
+Remove the invented `PLANS` array and JOD/USD sample tiers from the showcase section. Replace the Pricing showcase block with a placeholder panel:
+> "Pricing — real fee tables, limits, and currency toggle will be wired here once approved copy is provided."
+Keep the `PricingTable` component file in place but export a stub that renders the placeholder, so future work only needs to fill data.
 
-Same token spec as approved plan (brand constants, dark "neon" palette, light palette, 16/8/pill radii, `--glow`), registered via `@theme inline`. `@custom-variant dark (&:is(.dark *))`.
+### 6 + 7. Full top-level nav with confirmed taxonomy (`src/components/gtp/StickyNav.tsx` + `MegaMenu.tsx`)
 
-**Scoped reduced-motion rule:** kill large motion only.
+Top-level order: Products · Solutions · Platform · Who it's for · Developers · Company · Pricing.
 
-```css
-@media (prefers-reduced-motion: reduce) {
-  .motion-parallax, .motion-marquee, .motion-countup,
-  .motion-gradient-mesh, .motion-reveal {
-    animation: none !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
-```
+Mega-menu columns (exact taxonomy):
 
-Subtle opacity/color transitions and focus/hover feedback remain on. Motion components opt in by adding the appropriate class.
+- **Products**
+  - Cards: Prepaid, Debit, Credit, Gift, Selfie, Co-branded, Branded
+  - Card Issuing
+  - Wallets: Personal, Merchant
 
-## 4. Typography
+- **Solutions** (grouped)
+  - Pay: Supply Chain Payments, Bulk Payouts
+  - Collect: Marketplace & Platform Payments, Merchant Acceptance
+  - Control: Corporate Spend Control, Just-in-Time Funding, Escrow Services
+  - Engage: Community Payments, Loyalty & Rewards
 
-Font stack `-apple-system, "SF Pro Display", "SF Pro Text", Inter, sans-serif`. Load Inter via `<link>` in `__root.tsx`. Size tokens: display 56, h1 44, h2 34, h3 24, body 16–18. `letter-spacing: -1px` on display/h1.
+- **Platform**
+  - Embedded Finance, Multi-Rail Connectivity, BIN Sponsorship, Card as a Service, Payment Rails, Wallet Infrastructure, Settlement & Reconciliation, Compliance Framework
+  - Services: Managed Programs, Professional Services, Regulatory Advisory
 
-## 5. Theme system — three-state (light / dark / system), default = system
+- **Who it's for**
+  - Businesses, Merchants & Online Stores, Platforms & Marketplaces, Fintechs, Banks & Financial Institutions, Government, Communities
 
-Data model:
-- `storedPreference: "light" | "dark" | "system" | null` in `localStorage["gtp-theme"]`.
-- `resolvedTheme: "light" | "dark"` — what actually renders.
-- If `storedPreference` is `null` or `"system"`, resolve from `matchMedia("(prefers-color-scheme: dark)")`.
+- Developers / Company / Pricing = simple links (no dropdown yet).
 
-**Pre-hydration inline script** (in `__root.tsx` via `scripts` in `head()` so it runs before paint):
+`MegaMenu` currently caps at 3 columns via a template-literal Tailwind class (`grid-cols-${n}`, which does not JIT). Fix by using an explicit style/grid mapping supporting 2–4 columns so Platform and Solutions render cleanly.
 
-```js
-(function(){
-  try {
-    var s = localStorage.getItem("gtp-theme");
-    var isDark = s === "dark" || ((s === null || s === "system") &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches);
-    document.documentElement.classList.toggle("dark", isDark);
-    document.documentElement.dataset.themePref = s || "system";
-  } catch(e){}
-})();
-```
+### 8. Positioning
+No copy change needed beyond the hero (already broad). No lingering "banks, PSPs, fintechs" phrasing remains after hero replacement — verify and remove if found elsewhere in the showcase.
 
-`<html suppressHydrationWarning>` stays.
+### 9. Tagline "Where Fintech Dreams Begin"
+Not confirmed in provided material. Remove any occurrence (search `src/` — currently absent) and do NOT add it. `en.ts` `brand.tagline` will be set to a neutral placeholder `Financial infrastructure for MENA and beyond` (already present) pending user confirmation.
 
-`ThemeProvider` (`src/lib/theme.tsx`):
-- Reads initial state from `document.documentElement`.
-- Exposes `{ preference, resolvedTheme, setPreference }`.
-- Subscribes to `matchMedia("(prefers-color-scheme: dark)").change` **only while `preference === "system"`**; live-updates `resolvedTheme` and the `.dark` class.
-- `setPreference("light" | "dark" | "system")` writes to localStorage (or removes on `"system"` — TBD, we'll store `"system"` explicitly for clarity) and updates the class.
+### Files touched
+- `src/components/gtp/MegaMenu.tsx` — solid surface, stacking, 2–4 col grid.
+- `src/components/gtp/StickyNav.tsx` — full nav, new menu data.
+- `src/components/gtp/StatCard.tsx` — accept pre-formatted target with suffix.
+- `src/components/gtp/ClientLogoStrip.tsx` — new client list.
+- `src/components/gtp/PricingTable.tsx` — stub with placeholder.
+- `src/routes/index.tsx` — approved hero, updated stats data, pricing placeholder.
+- `src/lib/i18n/en.ts` — `nav.signIn = "Client Login"`, hero strings.
 
-`<ThemeToggle />`: three-state segmented control (Sun / Moon / Monitor icons), accessible via radio group semantics, keyboard operable. Current preference highlighted.
-
-## 6. i18n scaffold
-
-`src/lib/i18n/` with `en.ts` dictionary, `LocaleProvider`, `t(key)` hook. `<html lang="en" dir="ltr">` now, swappable to `"ar"/"rtl"` later. All copy through `t()`. Components use logical CSS properties only (`margin-inline`, `padding-inline`, `inset-inline-*`, `text-start`, `border-inline-*`) — no directional Tailwind utilities in `src/components/gtp/`.
-
-## 7. Reusable component library (`src/components/gtp/`)
-
-1. `Button` — `primary` (fill `#22E3FF`, text `#04131F` navy for AA contrast on neon, `box-shadow: var(--glow)` in dark; solid teal `#0A8AA9` with white text in light), `ghost`, `secondary`. 8px radius.
-2. `BentoTile` — glass bg (dark), 16px radius, hover lift + neon edge (dark) / soft shadow (light).
-3. `StatCard` — `useCountUp` gated by `useInView` and reduced-motion (renders final value instantly if reduced); primary-colored number glows in dark. Uses `.motion-countup` class.
-4. `StickyNav` — glass sticky, transparent over hero → solid on scroll (rAF scroll listener), houses Logo, links, MegaMenu, ThemeToggle, CTA.
-5. `MegaMenu` — hover/focus multi-column dropdown, keyboard accessible, uses BentoTiles.
-6. `TrustBar` — compliance badges (CBJ Licensed, Mastercard Principal, Visa, UnionPay) as pills.
-7. `ClientLogoStrip` — grayscale→color on hover; marquee uses `.motion-marquee` (paused under reduced-motion).
-8. `ApiResponseCard` — `shiki`-highlighted JSON/HTTP, pre-rendered on the server so code ships in initial HTML; dual light/dark themes.
-9. `FaqAccordion` — restyled shadcn Accordion.
-10. `PricingTable` — tabbed plans + JOD/USD toggle.
-11. `Footer` — logo, columns, region/compliance line, social.
-12. Primitives: `GlassPanel`, `Pill`, `Logo`.
-13. **`Reveal`** (new) — wraps children with `IntersectionObserver`-driven fade/slide-in via `useInView` hook. Adds `.motion-reveal` class so reduced-motion disables it and renders content in final state. Props: `as`, `delay`, `direction` (`up`/`fade`), `once` (default true). `useInView(ref, { rootMargin, once })` exported separately for `StatCard` and future use.
-
-## 8. Contrast confirmation
-
-- Primary button: `#22E3FF` bg + `#04131F` text → contrast ratio ~14.5:1 ✅ AA/AAA.
-- Neon `#22E3FF` **text** on `#04131F` bg → ~14.5:1 ✅ AA. Reserved for large stat numbers/CTAs, not body copy.
-- Body text `#EAF6FA` on `#04131F` → ~17:1 ✅ AAA.
-- Dim `#8FB2C2` on `#04131F` → ~9:1 ✅ AA — safe for secondary text.
-- Light theme: `#022A44` headings on `#FFFFFF` → ~15:1 ✅; `#2A3B44` body on `#FFFFFF` → ~12:1 ✅.
-
-## 9. Component showcase route
-
-`src/routes/index.tsx` becomes an internal showcase rendering every component in both themes with labeled sections, so we can QA before pages exist. Full `head()` metadata for Gate to Pay.
-
-## 10. Not in this step
-
-Marketing pages (Home, Products, Solutions, Developers, Company, Pricing, Contact), real copy, backend/forms.
-
----
-
-## Technical notes
-
-- Tailwind v4 CSS-first; no `tailwind.config.js`.
-- Semantic tokens only in components.
-- `bun add shiki`.
-- Motion opt-in via `.motion-*` classes; reduced-motion strips only those.
-- Theme init script is tiny and inline; `<html suppressHydrationWarning>`.
-- Logical CSS properties enforced in `src/components/gtp/`.
+### Out of scope
+No new pages, no logo assets (awaiting upload), no real pricing data, no tagline.

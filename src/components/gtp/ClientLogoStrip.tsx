@@ -1,8 +1,16 @@
 import { cn } from "@/lib/utils";
 
+// Confirmed clients only. Text-badge placeholders until real logo assets are uploaded.
 const CLIENTS = [
-  "Arab Bank", "Cairo Amman", "Housing Bank", "Bank al Etihad", "Capital Bank",
-  "Jordan Kuwait", "Safwa Islamic", "Umniah", "Zain Cash", "Orange Money",
+  "Samsung",
+  "Orange Money",
+  "Equiti",
+  "ATFX",
+  "INGOT",
+  "CFI",
+  "CASHU",
+  "Altibbi",
+  "NatHealth",
 ];
 
 export function ClientLogoStrip({ className }: { className?: string }) {
@@ -22,6 +30,7 @@ export function ClientLogoStrip({ className }: { className?: string }) {
           <div
             key={`${name}-${i}`}
             className="flex h-10 min-w-[140px] items-center justify-center rounded-md ps-4 pe-4 text-sm font-medium tracking-wide grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-[opacity,filter] duration-300 text-muted-foreground hover:text-primary"
+            title={`${name} — logo placeholder`}
           >
             {name}
           </div>
