@@ -5,29 +5,32 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * Gate to Pay Design System
+ * Semantic tokens only. No hardcoded colors in components.
+ * Two themes: dark ("neon", default via OS pref) and light.
+ * Logical CSS properties throughout for future RTL/Arabic support.
  */
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  /* Radii */
+  --radius-button: 8px;
+  --radius-card: 16px;
+  --radius-pill: 9999px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Fonts */
+  --font-sans: -apple-system, "SF Pro Display", "SF Pro Text", Inter, system-ui, sans-serif;
+  --font-display: -apple-system, "SF Pro Display", Inter, system-ui, sans-serif;
+
+  /* Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-elevated: var(--elevated);
+  --color-subtle: var(--subtle);
+  --color-glass: var(--glass);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -40,105 +43,237 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-highlight: var(--highlight);
+  --color-heading: var(--heading);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-ring-offset-background: var(--background);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Brand constants (both themes) */
+  --color-brand-teal: #0A8AA9;
+  --color-brand-navy: #022A44;
+  --color-brand-cyan: #CBEBF5;
+  --color-brand-gray: #606161;
+  --color-brand-neon: #22E3FF;
+
+  /* Story section (navy) */
+  --color-story: var(--story);
+  --color-story-foreground: var(--story-foreground);
+
+  /* Shadows */
+  --shadow-glow: var(--glow);
+  --shadow-glow-sm: var(--glow-sm);
+  --shadow-soft: var(--soft-shadow);
+  --shadow-elevated: var(--elevated-shadow);
 }
 
+/* Dark "neon" — default when OS prefers dark or no preference */
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --background: #04131F;
+  --elevated: #082638;
+  --subtle: #082638;
+  --glass: rgba(10, 138, 169, 0.06);
+  --card: #082638;
+  --card-foreground: #EAF6FA;
+  --popover: #082638;
+  --popover-foreground: #EAF6FA;
+  --primary: #22E3FF;
+  --primary-foreground: #04131F;
+  --secondary: rgba(10, 138, 169, 0.14);
+  --secondary-foreground: #EAF6FA;
+  --muted: rgba(10, 138, 169, 0.10);
+  --muted-foreground: #8FB2C2;
+  --accent: #0A8AA9;
+  --accent-foreground: #EAF6FA;
+  --highlight: #7DF9FF;
+  --heading: #EAF6FA;
+  --foreground: #EAF6FA;
+  --destructive: #ff5c7a;
+  --destructive-foreground: #04131F;
+  --border: rgba(125, 249, 255, 0.16);
+  --border-strong: rgba(125, 249, 255, 0.32);
+  --input: rgba(125, 249, 255, 0.16);
+  --ring: #22E3FF;
+  --story: #022A44;
+  --story-foreground: #EAF6FA;
+
+  --glow: 0 0 24px rgba(34, 227, 255, 0.45);
+  --glow-sm: 0 0 12px rgba(34, 227, 255, 0.35);
+  --soft-shadow: 0 6px 24px -12px rgba(0, 0, 0, 0.6);
+  --elevated-shadow: 0 12px 40px -16px rgba(0, 0, 0, 0.7);
+
+  color-scheme: dark;
 }
 
+/* Light — inverted when .dark class is absent AND we're in light mode.
+   We instead use :root as dark default and .light override, controlled by
+   the pre-hydration script that sets `.dark` on <html>. */
+:root.light {
+  --background: #FFFFFF;
+  --elevated: #F5FBFD;
+  --subtle: #F5FBFD;
+  --glass: rgba(10, 138, 169, 0.04);
+  --card: #FFFFFF;
+  --card-foreground: #2A3B44;
+  --popover: #FFFFFF;
+  --popover-foreground: #2A3B44;
+  --primary: #0A8AA9;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F5FBFD;
+  --secondary-foreground: #022A44;
+  --muted: #F5FBFD;
+  --muted-foreground: #606161;
+  --accent: #CBEBF5;
+  --accent-foreground: #022A44;
+  --highlight: #0A8AA9;
+  --heading: #022A44;
+  --foreground: #2A3B44;
+  --destructive: #d93052;
+  --destructive-foreground: #FFFFFF;
+  --border: #E2EEF2;
+  --border-strong: #CBEBF5;
+  --input: #E2EEF2;
+  --ring: #0A8AA9;
+  --story: #022A44;
+  --story-foreground: #EAF6FA;
+
+  --glow: none;
+  --glow-sm: none;
+  --soft-shadow: 0 6px 24px -12px rgba(2, 42, 68, 0.12);
+  --elevated-shadow: 0 12px 40px -16px rgba(2, 42, 68, 0.18);
+
+  color-scheme: light;
+}
+
+/* Also support .dark class for shadcn compatibility (equivalent to :root default) */
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  color-scheme: dark;
 }
 
 @layer base {
   * {
     border-color: var(--color-border);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    font-family: var(--font-sans);
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-heading);
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* Typography utilities */
+@utility text-display {
+  font-size: clamp(40px, 6vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -1px;
+  font-weight: 600;
+}
+@utility text-h1 {
+  font-size: clamp(32px, 4.4vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -1px;
+  font-weight: 600;
+}
+@utility text-h2 {
+  font-size: clamp(26px, 3.4vw, 34px);
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  font-weight: 600;
+}
+@utility text-h3 {
+  font-size: 24px;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+  font-weight: 600;
+}
+@utility text-body {
+  font-size: 17px;
+  line-height: 1.6;
+}
+@utility text-body-lg {
+  font-size: 18px;
+  line-height: 1.65;
+}
+@utility text-body-sm {
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* Glass panel utility */
+@utility glass {
+  background-color: var(--color-glass);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--color-border);
+}
+
+/* Neon glow (dark theme only — token collapses to `none` in light) */
+@utility glow {
+  box-shadow: var(--glow);
+}
+@utility glow-text {
+  text-shadow: 0 0 24px rgba(34, 227, 255, 0.55);
+}
+
+/* Bento tile hover-edge */
+@utility neon-edge {
+  box-shadow: var(--glow), inset 0 0 0 1px var(--color-primary);
+}
+
+/* Motion primitives — opt-in classes so reduced-motion strips only these */
+.motion-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.motion-reveal[data-revealed="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.motion-marquee {
+  animation: gtp-marquee 40s linear infinite;
+}
+@keyframes gtp-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Scoped reduced-motion — only kill large motion, keep subtle feedback */
+@media (prefers-reduced-motion: reduce) {
+  .motion-parallax,
+  .motion-marquee,
+  .motion-countup,
+  .motion-gradient-mesh,
+  .motion-reveal {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+    opacity: 1 !important;
   }
 }

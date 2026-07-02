@@ -11,20 +11,22 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { ThemeProvider, THEME_INIT_SCRIPT } from "../lib/theme";
+import { LocaleProvider } from "../lib/i18n";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-screen items-center justify-center bg-background ps-4 pe-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <h1 className="text-display font-bold text-foreground">404</h1>
+        <h2 className="mt-4 text-h3 text-foreground">Page not found</h2>
+        <p className="mt-2 text-body-sm text-muted-foreground">
           The page you're looking for doesn't exist or has been moved.
         </p>
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-button bg-primary ps-4 pe-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:brightness-110"
           >
             Go home
           </Link>
@@ -42,12 +44,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-screen items-center justify-center bg-background ps-4 pe-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <h1 className="text-h3 text-foreground">This page didn't load</h1>
+        <p className="mt-2 text-body-sm text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
@@ -56,13 +56,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-button bg-primary ps-4 pe-4 py-2 text-sm font-medium text-primary-foreground hover:brightness-110"
           >
             Try again
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-button border border-border bg-background ps-4 pe-4 py-2 text-sm font-medium text-foreground hover:bg-muted"
           >
             Go home
           </a>
@@ -77,22 +77,34 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Gate to Pay — Financial infrastructure for MENA" },
+      {
+        name: "description",
+        content:
+          "Gate to Pay is a Central Bank of Jordan licensed financial infrastructure company. Mastercard Principal Member enabling issuing, acquiring, and money movement across MENA since 2014.",
+      },
+      { name: "author", content: "Gate to Pay" },
+      { property: "og:title", content: "Gate to Pay — Financial infrastructure for MENA" },
+      {
+        property: "og:description",
+        content:
+          "Central Bank of Jordan licensed. Mastercard Principal Member. Issuing, acquiring, and money movement across MENA since 2014.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
     ],
+    scripts: [{ children: THEME_INIT_SCRIPT }],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -102,7 +114,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
@@ -119,8 +131,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <ThemeProvider>
+        <LocaleProvider>
+          {/* Required: nested routes render here. */}
+          <Outlet />
+        </LocaleProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
