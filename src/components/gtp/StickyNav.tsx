@@ -81,14 +81,7 @@ export function StickyNav() {
           />
           <MegaMenu
             label={t("nav.solutions")}
-            width={1180}
-            featured={{
-              eyebrow: "Featured",
-              icon: Sparkles,
-              title: "Pay, collect, control & engage",
-              description: "One platform to move money across your business.",
-              ctaLabel: "Explore solutions",
-            }}
+            width={980}
             columns={[
               {
                 heading: "Pay",

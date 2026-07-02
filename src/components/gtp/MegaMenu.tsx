@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ChevronDown, ArrowRight, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -48,7 +48,7 @@ function ItemRow({ item }: { item: MegaMenuItem }) {
   return (
     <a
       href={item.href ?? "#"}
-      className="group/row flex items-start gap-3 rounded-md ps-3 pe-3 py-2 hover:bg-muted focus-visible:bg-muted focus-visible:outline-none transition-colors"
+      className="group/row flex items-start gap-3 rounded-md ps-3 pe-3 py-2 min-h-[52px] hover:bg-muted focus-visible:bg-muted focus-visible:outline-none transition-colors"
     >
       {Icon && (
         <span
@@ -60,7 +60,7 @@ function ItemRow({ item }: { item: MegaMenuItem }) {
         </span>
       )}
       <span className="min-w-0 flex-1">
-        <span className="block text-body-sm font-medium text-foreground truncate">
+        <span className="block text-body-sm font-medium text-foreground leading-snug">
           {item.label}
         </span>
         {item.description && (
@@ -75,10 +75,38 @@ function ItemRow({ item }: { item: MegaMenuItem }) {
 
 export function MegaMenu({ label, columns, featured, width = 760 }: MegaMenuProps) {
   const [open, setOpen] = useState(false);
+  const [offsetX, setOffsetX] = useState(0);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const cols = Math.min(Math.max(columns.length, 1), 4);
   const FeatIcon = featured?.icon;
+
+  useEffect(() => {
+    if (!open) return;
+    const adjust = () => {
+      const wrap = wrapRef.current;
+      const panel = panelRef.current;
+      if (!wrap || !panel) return;
+      const margin = 16;
+      const wrapRect = wrap.getBoundingClientRect();
+      const panelW = panel.offsetWidth;
+      // Preferred: centered under trigger
+      const triggerCenter = wrapRect.left + wrapRect.width / 2;
+      let desiredLeft = triggerCenter - panelW / 2;
+      const maxLeft = window.innerWidth - margin - panelW;
+      const minLeft = margin;
+      desiredLeft = Math.max(minLeft, Math.min(desiredLeft, maxLeft));
+      // Convert to translateX offset from wrap's start edge
+      setOffsetX(desiredLeft - wrapRect.left);
+    };
+    adjust();
+    window.addEventListener("resize", adjust);
+    return () => window.removeEventListener("resize", adjust);
+  }, [open, width]);
+
   return (
     <div
+      ref={wrapRef}
       className="relative"
       style={{ isolation: "isolate" }}
       onMouseEnter={() => setOpen(true)}
@@ -97,8 +125,12 @@ export function MegaMenu({ label, columns, featured, width = 760 }: MegaMenuProp
       </button>
       {open && (
         <div
+          ref={panelRef}
           className="absolute top-full start-0 pt-3 z-[60]"
-          style={{ inlineSize: `min(${width}px, 92vw)` }}
+          style={{
+            inlineSize: `min(${width}px, calc(100vw - 32px))`,
+            transform: `translateX(${offsetX}px)`,
+          }}
         >
           <div
             className={cn(
@@ -112,7 +144,7 @@ export function MegaMenu({ label, columns, featured, width = 760 }: MegaMenuProp
               backdropFilter: "blur(24px) saturate(140%)",
             }}
           >
-            <div className={cn("grid gap-4", featured ? "md:grid-cols-[1fr_260px]" : "grid-cols-1")}>
+            <div className={cn("grid gap-4", featured ? "md:grid-cols-[minmax(0,1fr)_240px]" : "grid-cols-1")}>
               <div className={cn("grid gap-2", COL_CLASS[cols])}>
                 {columns.map((col) => {
                   const HIcon = col.headingIcon;
