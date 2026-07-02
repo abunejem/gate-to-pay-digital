@@ -17,6 +17,12 @@ import { ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/showcase")({
   component: Showcase,
+  head: () => ({
+    meta: [
+      { title: "Component library — Gate to Pay" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
 });
 
 function Section({
