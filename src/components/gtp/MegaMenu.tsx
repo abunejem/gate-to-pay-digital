@@ -118,10 +118,20 @@ export function MegaMenu({ label, columns, featured, width = 760 }: MegaMenuProp
                   const HIcon = col.headingIcon;
                   return (
                     <div key={col.heading} className="p-2">
-                      <div className="flex items-center gap-1.5 text-xs uppercase tracking-wide text-muted-foreground mb-2 ps-3">
-                        {HIcon && <HIcon size={12} className="text-primary" />}
-                        {col.heading}
-                      </div>
+                      {col.headingHref ? (
+                        <a
+                          href={col.headingHref}
+                          className="flex items-center gap-1.5 text-xs uppercase tracking-wide text-muted-foreground hover:text-primary transition-colors mb-2 ps-3"
+                        >
+                          {HIcon && <HIcon size={12} className="text-primary" />}
+                          {col.heading}
+                        </a>
+                      ) : (
+                        <div className="flex items-center gap-1.5 text-xs uppercase tracking-wide text-muted-foreground mb-2 ps-3">
+                          {HIcon && <HIcon size={12} className="text-primary" />}
+                          {col.heading}
+                        </div>
+                      )}
                       <ul className="space-y-0.5">
                         {col.items.map((item) => (
                           <li key={item.label}>
