@@ -162,7 +162,7 @@ export function StickyNav() {
           />
           <MegaMenu
             label={t("nav.whoItsFor")}
-            width={880}
+            width={640}
             featured={{
               eyebrow: "Not sure where you fit?",
               icon: MessageSquare,
