@@ -75,10 +75,38 @@ function ItemRow({ item }: { item: MegaMenuItem }) {
 
 export function MegaMenu({ label, columns, featured, width = 760 }: MegaMenuProps) {
   const [open, setOpen] = useState(false);
+  const [offsetX, setOffsetX] = useState(0);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const cols = Math.min(Math.max(columns.length, 1), 4);
   const FeatIcon = featured?.icon;
+
+  useEffect(() => {
+    if (!open) return;
+    const adjust = () => {
+      const wrap = wrapRef.current;
+      const panel = panelRef.current;
+      if (!wrap || !panel) return;
+      const margin = 16;
+      const wrapRect = wrap.getBoundingClientRect();
+      const panelW = panel.offsetWidth;
+      // Preferred: centered under trigger
+      const triggerCenter = wrapRect.left + wrapRect.width / 2;
+      let desiredLeft = triggerCenter - panelW / 2;
+      const maxLeft = window.innerWidth - margin - panelW;
+      const minLeft = margin;
+      desiredLeft = Math.max(minLeft, Math.min(desiredLeft, maxLeft));
+      // Convert to translateX offset from wrap's start edge
+      setOffsetX(desiredLeft - wrapRect.left);
+    };
+    adjust();
+    window.addEventListener("resize", adjust);
+    return () => window.removeEventListener("resize", adjust);
+  }, [open, width]);
+
   return (
     <div
+      ref={wrapRef}
       className="relative"
       style={{ isolation: "isolate" }}
       onMouseEnter={() => setOpen(true)}
@@ -97,10 +125,11 @@ export function MegaMenu({ label, columns, featured, width = 760 }: MegaMenuProp
       </button>
       {open && (
         <div
-          className="absolute top-full start-1/2 pt-3 z-[60]"
+          ref={panelRef}
+          className="absolute top-full start-0 pt-3 z-[60]"
           style={{
             inlineSize: `min(${width}px, calc(100vw - 32px))`,
-            transform: "translateX(-50%)",
+            transform: `translateX(${offsetX}px)`,
           }}
         >
           <div
