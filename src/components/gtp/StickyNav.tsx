@@ -5,6 +5,7 @@ import {
   Boxes, Network, Landmark, Cog,
   Building2, ShoppingBag, LayoutGrid, Rocket, Banknote, Shield, Users,
   BookOpen, Truck, Send, Zap, Lock, MessageSquare,
+  Menu, X, ChevronDown,
 } from "lucide-react";
 import { Logo } from "./Logo";
 import { Button } from "./Button";
@@ -16,6 +17,7 @@ import { cn } from "@/lib/utils";
 export function StickyNav() {
   const t = useT();
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     let raf = 0;
@@ -30,6 +32,59 @@ export function StickyNav() {
       cancelAnimationFrame(raf);
     };
   }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [mobileOpen]);
+
+  const mobileSections: Array<{ label: string; items: Array<{ label: string; href?: string }> }> = [
+    {
+      label: t("nav.products"),
+      items: [
+        { label: "Cards", href: "/products/cards" },
+        { label: "Prepaid" }, { label: "Debit" }, { label: "Credit" },
+        { label: "Gift" }, { label: "Selfie" }, { label: "Co-branded" }, { label: "Branded" },
+        { label: "Personal Wallets" }, { label: "Merchant Wallets" },
+      ],
+    },
+    {
+      label: t("nav.solutions"),
+      items: [
+        { label: "Supply Chain Payments" }, { label: "Bulk Payouts" },
+        { label: "Marketplace Payments" }, { label: "Merchant Acceptance" },
+        { label: "Corporate Spend Control" }, { label: "Just-in-Time Funding" }, { label: "Escrow Services" },
+        { label: "Community Payments" }, { label: "Loyalty & Rewards" },
+      ],
+    },
+    {
+      label: t("nav.platform"),
+      items: [
+        { label: "Embedded Finance" }, { label: "Multi-Rail Connectivity" },
+        { label: "BIN Sponsorship" }, { label: "Card as a Service" },
+        { label: "Payment Rails" }, { label: "Wallet Infrastructure" },
+        { label: "Settlement & Reconciliation" }, { label: "Compliance Framework" },
+        { label: "Managed Programs" }, { label: "Professional Services" }, { label: "Regulatory Advisory" },
+      ],
+    },
+    {
+      label: t("nav.whoItsFor"),
+      items: [
+        { label: "Businesses" }, { label: "Merchants & Online Stores" },
+        { label: "Platforms & Marketplaces" }, { label: "Fintechs" },
+        { label: "Banks & Institutions" }, { label: "Government" }, { label: "Communities" },
+      ],
+    },
+  ];
 
   return (
     <header
@@ -202,8 +257,64 @@ export function StickyNav() {
             {t("nav.signIn")}
           </a>
           <Button size="sm">{t("nav.getStarted")}</Button>
+          <button
+            type="button"
+            className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground/85 hover:text-foreground hover:bg-foreground/5"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav-panel"
+            onClick={() => setMobileOpen((v) => !v)}
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </div>
+
+      {mobileOpen && (
+        <div
+          id="mobile-nav-panel"
+          className="lg:hidden absolute inset-x-0 top-16 glass border-b border-border max-h-[calc(100vh-4rem)] overflow-y-auto"
+        >
+          <nav className="mx-auto max-w-7xl px-6 py-4 flex flex-col">
+            {mobileSections.map((section) => (
+              <details key={section.label} className="group border-b border-border/60 py-2">
+                <summary className="flex items-center justify-between cursor-pointer list-none py-2 text-body-sm font-medium text-foreground">
+                  {section.label}
+                  <ChevronDown size={16} className="transition-transform group-open:rotate-180 text-foreground/60" />
+                </summary>
+                <ul className="pt-1 pb-2 ps-2 flex flex-col">
+                  {section.items.map((item) => (
+                    <li key={item.label}>
+                      <a
+                        href={item.href ?? "#"}
+                        className="block py-2 text-body-sm text-foreground/75 hover:text-foreground"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ))}
+            {[
+              { label: t("nav.developers"), href: "#" },
+              { label: t("nav.company"), href: "#" },
+              { label: t("nav.pricing"), href: "#" },
+              { label: t("nav.signIn"), href: "#" },
+            ].map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="py-3 text-body-sm font-medium text-foreground border-b border-border/60 last:border-b-0"
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
