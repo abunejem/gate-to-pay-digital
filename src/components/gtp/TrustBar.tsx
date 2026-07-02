@@ -1,4 +1,4 @@
-import { ShieldCheck, CreditCard, Landmark, Globe2 } from "lucide-react";
+import { ShieldCheck, CreditCard, Landmark, Receipt, Calendar } from "lucide-react";
 import { useT } from "@/lib/i18n";
 import { Pill } from "./primitives";
 
@@ -7,8 +7,9 @@ export function TrustBar({ className }: { className?: string }) {
   const items = [
     { Icon: Landmark, label: t("trust.cbj") },
     { Icon: CreditCard, label: t("trust.mastercard") },
-    { Icon: ShieldCheck, label: t("trust.visa") },
-    { Icon: Globe2, label: t("trust.unionpay") },
+    { Icon: Receipt, label: t("trust.efawateer") },
+    { Icon: ShieldCheck, label: t("trust.pcidss") },
+    { Icon: Calendar, label: t("trust.since") },
   ];
   return (
     <div className={className}>

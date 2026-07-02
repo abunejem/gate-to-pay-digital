@@ -50,7 +50,7 @@ export function Footer() {
         </div>
         <div className="mt-12 pt-6 border-t border-border flex flex-wrap items-center justify-between gap-4 text-xs text-muted-foreground">
           <div>© {year} {t("brand.name")}. {t("footer.rights")}</div>
-          <div>{t("footer.address")} · CBJ Licensed · Mastercard Principal Member</div>
+          <div>{t("footer.address")} · CBJ Licensed · Mastercard Principal Member · PCI DSS</div>
         </div>
       </div>
     </footer>

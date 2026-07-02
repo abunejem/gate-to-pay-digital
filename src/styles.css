@@ -276,4 +276,5 @@
     transition: none !important;
     opacity: 1 !important;
   }
+  .motion-flow-pulse { display: none !important; }
 }
