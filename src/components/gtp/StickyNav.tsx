@@ -32,53 +32,118 @@ export function StickyNav() {
           ? "glass border-b border-border"
           : "bg-transparent border-b border-transparent",
       )}
+      style={{ isolation: "isolate" }}
     >
-      <div className="mx-auto max-w-7xl ps-6 pe-6 h-16 flex items-center gap-6">
+      <div className="mx-auto max-w-7xl ps-6 pe-6 h-16 flex items-center gap-4">
         <Logo variant="horizontal" height={28} />
-        <nav className="hidden md:flex items-center gap-2 ms-4">
+        <nav className="hidden lg:flex items-center gap-1 ms-4">
           <MegaMenu
             label={t("nav.products")}
+            width={720}
             columns={[
               {
-                heading: "Issuing",
+                heading: "Cards",
                 items: [
-                  { label: "Card issuing", description: "Physical & virtual cards" },
-                  { label: "Program management", description: "BIN sponsorship" },
+                  { label: "Prepaid" },
+                  { label: "Debit" },
+                  { label: "Credit" },
+                  { label: "Gift" },
+                  { label: "Selfie" },
+                  { label: "Co-branded" },
+                  { label: "Branded" },
                 ],
               },
               {
-                heading: "Acquiring",
-                items: [
-                  { label: "Merchant acquiring", description: "Card acceptance" },
-                  { label: "Payment gateway", description: "Online checkout" },
-                ],
+                heading: "Card Issuing",
+                items: [{ label: "Card Issuing" }],
               },
               {
-                heading: "Money movement",
-                items: [
-                  { label: "Payouts", description: "Global disbursement" },
-                  { label: "Remittance", description: "Cross-border transfers" },
-                ],
+                heading: "Wallets",
+                items: [{ label: "Personal" }, { label: "Merchant" }],
               },
             ]}
           />
           <MegaMenu
             label={t("nav.solutions")}
+            width={880}
             columns={[
               {
-                heading: "By industry",
+                heading: "Pay",
                 items: [
-                  { label: "Banks & PSPs" },
-                  { label: "Fintech startups" },
-                  { label: "Marketplaces" },
+                  { label: "Supply Chain Payments" },
+                  { label: "Bulk Payouts" },
                 ],
               },
               {
-                heading: "By region",
+                heading: "Collect",
                 items: [
-                  { label: "MENA" },
-                  { label: "GCC" },
-                  { label: "Global" },
+                  { label: "Marketplace & Platform Payments" },
+                  { label: "Merchant Acceptance" },
+                ],
+              },
+              {
+                heading: "Control",
+                items: [
+                  { label: "Corporate Spend Control" },
+                  { label: "Just-in-Time Funding" },
+                  { label: "Escrow Services" },
+                ],
+              },
+              {
+                heading: "Engage",
+                items: [
+                  { label: "Community Payments" },
+                  { label: "Loyalty & Rewards" },
+                ],
+              },
+            ]}
+          />
+          <MegaMenu
+            label={t("nav.platform")}
+            width={820}
+            columns={[
+              {
+                heading: "Infrastructure",
+                items: [
+                  { label: "Embedded Finance" },
+                  { label: "Multi-Rail Connectivity" },
+                  { label: "BIN Sponsorship" },
+                  { label: "Card as a Service" },
+                ],
+              },
+              {
+                heading: "Rails & Ops",
+                items: [
+                  { label: "Payment Rails" },
+                  { label: "Wallet Infrastructure" },
+                  { label: "Settlement & Reconciliation" },
+                  { label: "Compliance Framework" },
+                ],
+              },
+              {
+                heading: "Services",
+                items: [
+                  { label: "Managed Programs" },
+                  { label: "Professional Services" },
+                  { label: "Regulatory Advisory" },
+                ],
+              },
+            ]}
+          />
+          <MegaMenu
+            label={t("nav.whoItsFor")}
+            width={640}
+            columns={[
+              {
+                heading: "Segments",
+                items: [
+                  { label: "Businesses" },
+                  { label: "Merchants & Online Stores" },
+                  { label: "Platforms & Marketplaces" },
+                  { label: "Fintechs" },
+                  { label: "Banks & Financial Institutions" },
+                  { label: "Government" },
+                  { label: "Communities" },
                 ],
               },
             ]}
@@ -87,10 +152,10 @@ export function StickyNav() {
             {t("nav.developers")}
           </a>
           <a href="#" className="text-body-sm text-foreground/85 hover:text-foreground py-2 ps-3 pe-3">
-            {t("nav.pricing")}
+            {t("nav.company")}
           </a>
           <a href="#" className="text-body-sm text-foreground/85 hover:text-foreground py-2 ps-3 pe-3">
-            {t("nav.company")}
+            {t("nav.pricing")}
           </a>
         </nav>
         <div className="ms-auto flex items-center gap-3">
