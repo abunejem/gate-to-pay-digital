@@ -26,7 +26,6 @@ export const en = {
   trust: {
     cbj: "CBJ Licensed",
     mastercard: "Mastercard Principal Member",
-    efawateer: "eFAWATEERcom",
     pcidss: "PCI DSS",
     since: "Since 2014",
   },
