@@ -15,7 +15,7 @@ import { Logo } from "@/components/gtp/Logo";
 import { useT } from "@/lib/i18n";
 import { ArrowRight } from "lucide-react";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/showcase")({
   component: Showcase,
 });
 
