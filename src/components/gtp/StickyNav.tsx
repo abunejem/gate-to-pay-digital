@@ -257,8 +257,64 @@ export function StickyNav() {
             {t("nav.signIn")}
           </a>
           <Button size="sm">{t("nav.getStarted")}</Button>
+          <button
+            type="button"
+            className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground/85 hover:text-foreground hover:bg-foreground/5"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav-panel"
+            onClick={() => setMobileOpen((v) => !v)}
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </div>
+
+      {mobileOpen && (
+        <div
+          id="mobile-nav-panel"
+          className="lg:hidden absolute inset-x-0 top-16 glass border-b border-border max-h-[calc(100vh-4rem)] overflow-y-auto"
+        >
+          <nav className="mx-auto max-w-7xl px-6 py-4 flex flex-col">
+            {mobileSections.map((section) => (
+              <details key={section.label} className="group border-b border-border/60 py-2">
+                <summary className="flex items-center justify-between cursor-pointer list-none py-2 text-body-sm font-medium text-foreground">
+                  {section.label}
+                  <ChevronDown size={16} className="transition-transform group-open:rotate-180 text-foreground/60" />
+                </summary>
+                <ul className="pt-1 pb-2 ps-2 flex flex-col">
+                  {section.items.map((item) => (
+                    <li key={item.label}>
+                      <a
+                        href={item.href ?? "#"}
+                        className="block py-2 text-body-sm text-foreground/75 hover:text-foreground"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ))}
+            {[
+              { label: t("nav.developers"), href: "#" },
+              { label: t("nav.company"), href: "#" },
+              { label: t("nav.pricing"), href: "#" },
+              { label: t("nav.signIn"), href: "#" },
+            ].map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="py-3 text-body-sm font-medium text-foreground border-b border-border/60 last:border-b-0"
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
