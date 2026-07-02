@@ -46,7 +46,7 @@ export function StickyNav() {
         <nav className="hidden lg:flex items-center gap-1 ms-4">
           <MegaMenu
             label={t("nav.products")}
-            width={980}
+            width={880}
             featured={{
               eyebrow: "Featured",
               icon: Cpu,
@@ -58,6 +58,7 @@ export function StickyNav() {
               {
                 heading: "Cards",
                 headingIcon: CreditCard,
+                headingHref: "/products/cards",
                 items: [
                   { label: "Prepaid", description: "Load-and-spend balances", icon: Wallet },
                   { label: "Debit", description: "Spend from a linked wallet", icon: CreditCard },
@@ -66,13 +67,6 @@ export function StickyNav() {
                   { label: "Selfie", description: "Personalized card design", icon: ScanFace },
                   { label: "Co-branded", description: "Partner-branded on our BIN", icon: Layers },
                   { label: "Branded", description: "Fully branded programs", icon: BadgeCheck },
-                ],
-              },
-              {
-                heading: "Card Issuing",
-                headingIcon: Cpu,
-                items: [
-                  { label: "Card Issuing", description: "Issue physical & virtual cards via API", icon: Cpu },
                 ],
               },
               {
@@ -87,12 +81,12 @@ export function StickyNav() {
           />
           <MegaMenu
             label={t("nav.solutions")}
-            width={980}
+            width={1180}
             featured={{
               eyebrow: "Featured",
               icon: Sparkles,
               title: "Pay, collect, control & engage",
-              description: "One platform to move money across your business — from supplier payouts to community rewards.",
+              description: "One platform to move money across your business.",
               ctaLabel: "Explore solutions",
             }}
             columns={[
@@ -100,16 +94,16 @@ export function StickyNav() {
                 heading: "Pay",
                 headingIcon: ArrowRightLeft,
                 items: [
-                  { label: "Supply Chain Payments", description: "Pay suppliers across markets", icon: ArrowRightLeft },
-                  { label: "Bulk Payouts", description: "Disburse to many recipients at once", icon: ArrowRightLeft },
+                  { label: "Supply Chain Payments", description: "Pay suppliers across markets", icon: Truck },
+                  { label: "Bulk Payouts", description: "Disburse to many at once", icon: Send },
                 ],
               },
               {
                 heading: "Collect",
                 headingIcon: Download,
                 items: [
-                  { label: "Marketplace & Platform Payments", description: "Split, hold, and settle for sellers", icon: Download },
-                  { label: "Merchant Acceptance", description: "Accept cards and local rails", icon: Download },
+                  { label: "Marketplace Payments", description: "Split, hold and settle for sellers", icon: Store },
+                  { label: "Merchant Acceptance", description: "Accept cards and local rails", icon: CreditCard },
                 ],
               },
               {
@@ -117,16 +111,16 @@ export function StickyNav() {
                 headingIcon: SlidersHorizontal,
                 items: [
                   { label: "Corporate Spend Control", description: "Rules, limits and approvals", icon: SlidersHorizontal },
-                  { label: "Just-in-Time Funding", description: "Fund cards at the moment of spend", icon: SlidersHorizontal },
-                  { label: "Escrow Services", description: "Hold funds until conditions clear", icon: SlidersHorizontal },
+                  { label: "Just-in-Time Funding", description: "Fund cards at the moment of spend", icon: Zap },
+                  { label: "Escrow Services", description: "Hold funds until conditions clear", icon: Lock },
                 ],
               },
               {
                 heading: "Engage",
                 headingIcon: Sparkles,
                 items: [
-                  { label: "Community Payments", description: "Programs for members and groups", icon: Sparkles },
-                  { label: "Loyalty & Rewards", description: "Cashback, points and incentives", icon: Sparkles },
+                  { label: "Community Payments", description: "Programs for members and groups", icon: Users },
+                  { label: "Loyalty & Rewards", description: "Cashback, points and incentives", icon: Gift },
                 ],
               },
             ]}
@@ -175,7 +169,14 @@ export function StickyNav() {
           />
           <MegaMenu
             label={t("nav.whoItsFor")}
-            width={720}
+            width={880}
+            featured={{
+              eyebrow: "Not sure where you fit?",
+              icon: MessageSquare,
+              title: "Talk to our team",
+              description: "We'll help you find the right setup for your business.",
+              ctaLabel: "Book a discovery call",
+            }}
             columns={[
               {
                 heading: "Segments",
@@ -185,7 +186,7 @@ export function StickyNav() {
                   { label: "Merchants & Online Stores", description: "Accept payments and manage funds", icon: ShoppingBag },
                   { label: "Platforms & Marketplaces", description: "Embed payments for your users", icon: LayoutGrid },
                   { label: "Fintechs", description: "Launch on regulated infrastructure", icon: Rocket },
-                  { label: "Banks & Financial Institutions", description: "Extend product lines quickly", icon: Banknote },
+                  { label: "Banks & Institutions", description: "Extend product lines quickly", icon: Banknote },
                   { label: "Government", description: "Disburse funds and modernise rails", icon: Landmark },
                   { label: "Communities", description: "Programs for members and groups", icon: Users },
                 ],
