@@ -120,7 +120,7 @@ export function StickyNav() {
           />
           <MegaMenu
             label={t("nav.platform")}
-            width={960}
+            width={860}
             featured={{
               eyebrow: "Developers",
               icon: BookOpen,
