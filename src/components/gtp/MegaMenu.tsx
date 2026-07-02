@@ -59,11 +59,11 @@ function ItemRow({ item }: { item: MegaMenuItem }) {
         </span>
       )}
       <span className="min-w-0 flex-1">
-        <span className="block text-body-sm font-medium text-foreground">
+        <span className="block text-body-sm font-medium text-foreground truncate">
           {item.label}
         </span>
         {item.description && (
-          <span className="block text-xs text-muted-foreground mt-0.5 leading-snug">
+          <span className="block text-xs text-muted-foreground mt-0.5 leading-snug truncate">
             {item.description}
           </span>
         )}
