@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 export function StickyNav() {
   const t = useT();
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     let raf = 0;
@@ -31,6 +32,59 @@ export function StickyNav() {
       cancelAnimationFrame(raf);
     };
   }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [mobileOpen]);
+
+  const mobileSections: Array<{ label: string; items: Array<{ label: string; href?: string }> }> = [
+    {
+      label: t("nav.products"),
+      items: [
+        { label: "Cards", href: "/products/cards" },
+        { label: "Prepaid" }, { label: "Debit" }, { label: "Credit" },
+        { label: "Gift" }, { label: "Selfie" }, { label: "Co-branded" }, { label: "Branded" },
+        { label: "Personal Wallets" }, { label: "Merchant Wallets" },
+      ],
+    },
+    {
+      label: t("nav.solutions"),
+      items: [
+        { label: "Supply Chain Payments" }, { label: "Bulk Payouts" },
+        { label: "Marketplace Payments" }, { label: "Merchant Acceptance" },
+        { label: "Corporate Spend Control" }, { label: "Just-in-Time Funding" }, { label: "Escrow Services" },
+        { label: "Community Payments" }, { label: "Loyalty & Rewards" },
+      ],
+    },
+    {
+      label: t("nav.platform"),
+      items: [
+        { label: "Embedded Finance" }, { label: "Multi-Rail Connectivity" },
+        { label: "BIN Sponsorship" }, { label: "Card as a Service" },
+        { label: "Payment Rails" }, { label: "Wallet Infrastructure" },
+        { label: "Settlement & Reconciliation" }, { label: "Compliance Framework" },
+        { label: "Managed Programs" }, { label: "Professional Services" }, { label: "Regulatory Advisory" },
+      ],
+    },
+    {
+      label: t("nav.whoItsFor"),
+      items: [
+        { label: "Businesses" }, { label: "Merchants & Online Stores" },
+        { label: "Platforms & Marketplaces" }, { label: "Fintechs" },
+        { label: "Banks & Institutions" }, { label: "Government" }, { label: "Communities" },
+      ],
+    },
+  ];
 
   return (
     <header
