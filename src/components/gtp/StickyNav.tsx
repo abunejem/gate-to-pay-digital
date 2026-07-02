@@ -1,4 +1,11 @@
 import { useEffect, useState } from "react";
+import {
+  Wallet, CreditCard, Gift, ScanFace, Layers, BadgeCheck, Cpu, Store,
+  ArrowRightLeft, Download, SlidersHorizontal, Sparkles,
+  Boxes, Network, Landmark, Cog,
+  Building2, ShoppingBag, LayoutGrid, Rocket, Banknote, Shield, Users,
+  BookOpen,
+} from "lucide-react";
 import { Logo } from "./Logo";
 import { Button } from "./Button";
 import { ThemeToggle } from "./ThemeToggle";
