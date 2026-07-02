@@ -23,12 +23,12 @@ export const Route = createFileRoute("/")({
 });
 
 const PRODUCTS = [
-  { title: "Cards", body: "Issue prepaid, debit, credit & branded cards." },
-  { title: "Card Issuing", body: "Programmatic issuing on your own BIN." },
+  { title: "Cards", body: "Issue physical, virtual & tokenized cards via one API." },
   { title: "Wallets", body: "Personal & merchant wallets, funded across rails." },
   { title: "Acceptance", body: "Accept payments in store and online." },
   { title: "Payouts", body: "Single & bulk disbursements, instantly." },
   { title: "Collections", body: "Marketplace & merchant collections." },
+  { title: "Embedded Finance", body: "Embed cards, wallets and payments inside your own product." },
 ];
 
 const AUDIENCES = [
