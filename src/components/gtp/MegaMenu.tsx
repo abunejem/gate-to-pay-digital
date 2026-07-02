@@ -97,8 +97,11 @@ export function MegaMenu({ label, columns, featured, width = 760 }: MegaMenuProp
       </button>
       {open && (
         <div
-          className="absolute top-full start-0 pt-3 z-[60]"
-          style={{ inlineSize: `min(${width}px, 92vw)` }}
+          className="absolute top-full start-1/2 pt-3 z-[60]"
+          style={{
+            inlineSize: `min(${width}px, calc(100vw - 32px))`,
+            transform: "translateX(-50%)",
+          }}
         >
           <div
             className={cn(
@@ -112,7 +115,7 @@ export function MegaMenu({ label, columns, featured, width = 760 }: MegaMenuProp
               backdropFilter: "blur(24px) saturate(140%)",
             }}
           >
-            <div className={cn("grid gap-4", featured ? "md:grid-cols-[1fr_260px]" : "grid-cols-1")}>
+            <div className={cn("grid gap-4", featured ? "md:grid-cols-[minmax(0,1fr)_240px]" : "grid-cols-1")}>
               <div className={cn("grid gap-2", COL_CLASS[cols])}>
                 {columns.map((col) => {
                   const HIcon = col.headingIcon;
