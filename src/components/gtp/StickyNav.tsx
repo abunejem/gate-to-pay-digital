@@ -81,7 +81,7 @@ export function StickyNav() {
           />
           <MegaMenu
             label={t("nav.solutions")}
-            width={980}
+            width={880}
             columns={[
               {
                 heading: "Pay",
