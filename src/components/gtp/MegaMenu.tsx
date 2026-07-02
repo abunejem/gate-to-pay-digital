@@ -12,6 +12,7 @@ export interface MegaMenuItem {
 export interface MegaMenuColumn {
   heading: string;
   headingIcon?: LucideIcon;
+  headingHref?: string;
   items: MegaMenuItem[];
 }
 
