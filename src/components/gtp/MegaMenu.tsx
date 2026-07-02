@@ -54,13 +54,13 @@ export function MegaMenu({ label, columns, width = 760 }: MegaMenuProps) {
         >
           <div
             className={cn(
-              "rounded-card p-4 border shadow-elevated",
-              "bg-white border-border dark:border-[rgba(34,227,255,0.25)]",
+              "rounded-card p-4 border",
+              "bg-white border-border",
+              "dark:bg-[rgba(8,38,56,0.98)] dark:border-[rgba(34,227,255,0.25)]",
             )}
             style={{
-              backgroundColor: "var(--mega-menu-bg, #FFFFFF)",
               boxShadow:
-                "0 12px 40px rgba(2,42,68,0.14), 0 2px 8px rgba(2,42,68,0.08)",
+                "0 20px 60px rgba(2,10,20,0.45), 0 4px 12px rgba(2,10,20,0.25)",
               backdropFilter: "blur(24px) saturate(140%)",
             }}
           >
