@@ -90,13 +90,11 @@ export function MegaMenu({ label, columns, featured, width = 760 }: MegaMenuProp
       const margin = 16;
       const wrapRect = wrap.getBoundingClientRect();
       const panelW = panel.offsetWidth;
-      // Preferred: centered under trigger
-      const triggerCenter = wrapRect.left + wrapRect.width / 2;
-      let desiredLeft = triggerCenter - panelW / 2;
+      // Preferred: start-aligned to the trigger
+      let desiredLeft = wrapRect.left;
       const maxLeft = window.innerWidth - margin - panelW;
       const minLeft = margin;
       desiredLeft = Math.max(minLeft, Math.min(desiredLeft, maxLeft));
-      // Convert to translateX offset from wrap's start edge
       setOffsetX(desiredLeft - wrapRect.left);
     };
     adjust();

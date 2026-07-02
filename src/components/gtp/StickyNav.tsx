@@ -46,7 +46,7 @@ export function StickyNav() {
         <nav className="hidden lg:flex items-center gap-1 ms-4">
           <MegaMenu
             label={t("nav.products")}
-            width={880}
+            width={720}
             featured={{
               eyebrow: "Featured",
               icon: Cpu,
@@ -81,7 +81,7 @@ export function StickyNav() {
           />
           <MegaMenu
             label={t("nav.solutions")}
-            width={980}
+            width={880}
             columns={[
               {
                 heading: "Pay",
@@ -120,7 +120,7 @@ export function StickyNav() {
           />
           <MegaMenu
             label={t("nav.platform")}
-            width={960}
+            width={860}
             featured={{
               eyebrow: "Developers",
               icon: BookOpen,
@@ -162,7 +162,7 @@ export function StickyNav() {
           />
           <MegaMenu
             label={t("nav.whoItsFor")}
-            width={880}
+            width={640}
             featured={{
               eyebrow: "Not sure where you fit?",
               icon: MessageSquare,
