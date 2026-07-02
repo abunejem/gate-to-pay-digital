@@ -4,7 +4,7 @@ import {
   ArrowRightLeft, Download, SlidersHorizontal, Sparkles,
   Boxes, Network, Landmark, Cog,
   Building2, ShoppingBag, LayoutGrid, Rocket, Banknote, Shield, Users,
-  BookOpen,
+  BookOpen, Truck, Send, Zap, Lock, MessageSquare,
 } from "lucide-react";
 import { Logo } from "./Logo";
 import { Button } from "./Button";
