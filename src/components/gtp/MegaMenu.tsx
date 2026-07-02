@@ -48,7 +48,7 @@ function ItemRow({ item }: { item: MegaMenuItem }) {
   return (
     <a
       href={item.href ?? "#"}
-      className="group/row flex items-start gap-3 rounded-md ps-3 pe-3 py-2 hover:bg-muted focus-visible:bg-muted focus-visible:outline-none transition-colors"
+      className="group/row flex items-start gap-3 rounded-md ps-3 pe-3 py-2 min-h-[52px] hover:bg-muted focus-visible:bg-muted focus-visible:outline-none transition-colors"
     >
       {Icon && (
         <span
@@ -60,7 +60,7 @@ function ItemRow({ item }: { item: MegaMenuItem }) {
         </span>
       )}
       <span className="min-w-0 flex-1">
-        <span className="block text-body-sm font-medium text-foreground truncate">
+        <span className="block text-body-sm font-medium text-foreground leading-snug">
           {item.label}
         </span>
         {item.description && (
