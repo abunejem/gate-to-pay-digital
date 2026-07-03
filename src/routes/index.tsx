@@ -125,7 +125,7 @@ function HomePage() {
       </section>
 
       {/* Stats */}
-      <section className="ps-6 pe-6 py-16 border-t border-border">
+      <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-border">
         <div className="mx-auto max-w-7xl grid gap-8 md:grid-cols-4">
           <StatCard value={1} suffix="B+" label="Processed transactions" />
           <StatCard value={160} suffix="K+" label="Customers served" />
@@ -135,7 +135,7 @@ function HomePage() {
       </section>
 
       {/* Products bento */}
-      <section className="ps-6 pe-6 py-20 border-t border-border">
+      <section className="px-4 sm:px-6 py-14 sm:py-20 border-t border-border">
         <div className="mx-auto max-w-7xl">
           <Reveal>
             <h2 className="text-h1">One platform. Every building block.</h2>
@@ -160,7 +160,7 @@ function HomePage() {
       </section>
 
       {/* Client logo strip */}
-      <section className="ps-6 pe-6 py-16 border-t border-border">
+      <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-border">
         <div className="mx-auto max-w-7xl">
           <Reveal>
             <p className="text-center text-body-sm text-muted-foreground">
@@ -178,7 +178,7 @@ function HomePage() {
       />
 
       {/* Signature — Multi-rail diagram */}
-      <section className="ps-6 pe-6 py-24 border-t border-border">
+      <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-border">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <div className="text-center">
@@ -197,7 +197,7 @@ function HomePage() {
       </section>
 
       {/* Who it's for */}
-      <section className="ps-6 pe-6 py-20 border-t border-border">
+      <section className="px-4 sm:px-6 py-14 sm:py-20 border-t border-border">
         <div className="mx-auto max-w-7xl">
           <Reveal>
             <h2 className="text-h1">Built for connected businesses.</h2>
@@ -218,7 +218,7 @@ function HomePage() {
       </section>
 
       {/* Why Gate to Pay */}
-      <section className="ps-6 pe-6 py-20 border-t border-border">
+      <section className="px-4 sm:px-6 py-14 sm:py-20 border-t border-border">
         <div className="mx-auto max-w-7xl">
           <Reveal>
             <h2 className="text-h1">Regulated, neutral, and built in-house.</h2>
@@ -237,7 +237,7 @@ function HomePage() {
       </section>
 
       {/* Featured success story */}
-      <section className="ps-6 pe-6 py-20 border-t border-border">
+      <section className="px-4 sm:px-6 py-14 sm:py-20 border-t border-border">
         <div className="mx-auto max-w-5xl">
           <Reveal>
             <div
@@ -262,7 +262,7 @@ function HomePage() {
       </section>
 
       {/* Developer teaser */}
-      <section className="ps-6 pe-6 py-20 border-t border-border">
+      <section className="px-4 sm:px-6 py-14 sm:py-20 border-t border-border">
         <div className="mx-auto max-w-7xl grid gap-10 lg:grid-cols-2 items-center">
           <Reveal>
             <h2 className="text-h1">Built for developers, too.</h2>
@@ -282,7 +282,7 @@ function HomePage() {
       </section>
 
       {/* Final CTA */}
-      <section className="ps-6 pe-6 py-24 border-t border-border">
+      <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-border">
         <div className="mx-auto max-w-3xl text-center">
           <Reveal>
             <h2 className="text-h1">Let's build your financial infrastructure.</h2>
