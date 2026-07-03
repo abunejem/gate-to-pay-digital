@@ -96,7 +96,7 @@ export function StickyNav() {
       )}
       style={{ isolation: "isolate" }}
     >
-      <div className="mx-auto max-w-7xl ps-6 pe-6 h-16 flex items-center gap-4">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 h-14 sm:h-16 flex items-center gap-2 sm:gap-4">
         <Logo variant="horizontal" height={28} />
         <nav className="hidden lg:flex items-center gap-1 ms-4">
           <MegaMenu
