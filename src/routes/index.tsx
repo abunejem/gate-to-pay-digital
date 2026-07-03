@@ -12,6 +12,7 @@ import { ApiResponseCard } from "@/components/gtp/ApiResponseCard";
 import { Reveal } from "@/components/gtp/Reveal";
 import { Pill } from "@/components/gtp/primitives";
 import { StoryScroll } from "@/components/gtp/StoryScroll";
+import { SuccessStoryCarousel, type SuccessSlide } from "@/components/gtp/SuccessStoryCarousel";
 import { MoneyFlowDiagram } from "@/components/gtp/MoneyFlowDiagram";
 import { useT } from "@/lib/i18n";
 
@@ -67,6 +68,52 @@ const STORY_STEPS = [
     title: "Scale, safely, without slowing down.",
     body: "Scale your business · Stay compliant & safe · Operate efficiently · See everything, act faster.",
     visual: "result" as const,
+  },
+];
+
+const SUCCESS_STORIES: SuccessSlide[] = [
+  {
+    id: "pharma",
+    eyebrow: "Live in production · Supply Chain Payments",
+    title: "From WhatsApp orders and spreadsheet credit to instant, reconciled payments.",
+    body: "A pharmaceutical distributor replaced manual ordering, spreadsheet credit management and manual reconciliation with Gate to Pay. Orders moved off WhatsApp, credit is checked before every order, and invoices are delivered and paid instantly.",
+    href: "#",
+  },
+  {
+    id: "trading",
+    eyebrow: "Live in production · Trading & Payouts",
+    title: "Instant client withdrawals and affiliate payouts across 17+ countries.",
+    body: "A trading platform uses Gate to Pay to fund client withdrawals and affiliate commissions the moment they're approved — cards, wallets and bank rails, orchestrated behind one API.",
+    metric: { value: "17+", label: "countries served" },
+    href: "#",
+    sample: true,
+  },
+  {
+    id: "retail",
+    eyebrow: "Live in production · Omnichannel Acceptance",
+    title: "One acceptance layer across POS and online, settled in one place.",
+    body: "A retail chain unified in-store terminals and its online checkout on Gate to Pay. Every channel, every method, one reconciled settlement file — no more month-end matching across providers.",
+    metric: { value: "1", label: "settlement file" },
+    href: "#",
+    sample: true,
+  },
+  {
+    id: "delivery",
+    eyebrow: "Live in production · Fleet Funding",
+    title: "Just-in-time courier card funding, with no idle float.",
+    body: "A delivery platform funds courier cards the moment an order is dispatched and sweeps unused balances back automatically — capital stays working, not sitting on cards.",
+    metric: { value: "0", label: "idle float" },
+    href: "#",
+    sample: true,
+  },
+  {
+    id: "youth-club",
+    eyebrow: "Live in production · Member Wallets",
+    title: "Member wallets, digital dues and benefit distribution in one app.",
+    body: "A youth club moved membership dues, benefit distribution and member spending onto Gate to Pay wallets — one tap to pay, one dashboard for the association.",
+    metric: { value: "1-tap", label: "dues & benefits" },
+    href: "#",
+    sample: true,
   },
 ];
 
@@ -255,27 +302,11 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Featured success story */}
+      {/* Featured success stories */}
       <section className="px-4 sm:px-6 py-14 sm:py-20 border-t border-border">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <Reveal>
-            <div
-              className="rounded-card p-6 sm:p-10 md:p-14"
-              style={{ backgroundColor: "var(--color-story)", color: "var(--color-story-foreground)" }}
-            >
-              <Pill tone="primary" className="mb-4">Live in production · Supply Chain Payments</Pill>
-              <h2 className="text-h2" style={{ color: "var(--color-story-foreground)" }}>
-                From WhatsApp orders and spreadsheet credit to instant, reconciled payments.
-              </h2>
-              <p className="mt-4 max-w-2xl text-body-lg opacity-85">
-                A pharmaceutical distributor replaced manual ordering, spreadsheet credit management and
-                manual reconciliation with Gate to Pay. Orders moved off WhatsApp, credit is checked
-                before every order, and invoices are delivered and paid instantly.
-              </p>
-              <div className="mt-8">
-                <Button variant="primary">Read the story <ArrowRight size={16} /></Button>
-              </div>
-            </div>
+            <SuccessStoryCarousel slides={SUCCESS_STORIES} />
           </Reveal>
         </div>
       </section>
