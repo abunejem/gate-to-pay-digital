@@ -184,6 +184,10 @@
     outline-offset: 2px;
     border-radius: 4px;
   }
+
+  section, h1, h2 {
+    scroll-margin-top: 96px;
+  }
 }
 
 /* Typography utilities */
