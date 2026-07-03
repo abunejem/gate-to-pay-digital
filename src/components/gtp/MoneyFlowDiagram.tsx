@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Logo } from "./Logo";
 
 // Static SVG diagram with pulses animated via CSS. Reduced-motion strips the
 // animation because the class is prefixed with `motion-` (see styles.css).
