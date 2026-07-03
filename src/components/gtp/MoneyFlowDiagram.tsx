@@ -66,8 +66,8 @@ export function MoneyFlowDiagram({ className }: { className?: string }) {
               </circle>
               <rect x="640" y={y} width="140" height="40" rx="10"
                 fill="var(--color-elevated)" stroke="var(--color-border)" />
-              <text x="710" y={y + 25} textAnchor="middle"
-                fill="var(--color-foreground)" fontSize="13" fontWeight="500">
+              <text x="710" y={y + 26} textAnchor="middle"
+                fill="var(--color-foreground)" fontSize="17" fontWeight="500">
                 {label}
               </text>
             </g>
