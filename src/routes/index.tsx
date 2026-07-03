@@ -132,7 +132,7 @@ function HomePage() {
               </div>
             </Reveal>
             <Reveal delay={320} className="mt-10">
-              <TrustBar />
+              <TrustBar pillClassName="lg:text-white/90 lg:border-white/25 lg:bg-white/[0.06]" />
             </Reveal>
           </div>
         </div>
