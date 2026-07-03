@@ -238,7 +238,7 @@ function Scene({ reduced, variant }: SceneProps) {
   const pulseRefs = useRef<THREE.Sprite[]>([]);
   const pointsRef = useRef<THREE.Points>(null);
   const parallax = useRef({ mx: 0, my: 0, tx: 0, ty: 0 });
-  const { invalidate, gl } = useThree();
+  const { invalidate, gl, size } = useThree();
 
   const nodes = variant === "mobile" ? [ALL_NODES[0], ALL_NODES[2]] : ALL_NODES;
   const particleCount = variant === "mobile" ? 60 : 170;
