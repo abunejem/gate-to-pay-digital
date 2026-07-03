@@ -82,8 +82,8 @@ function getCardTex() {
   x.restore();
   // neon stroke
   roundRect(x, cx, cy, cw, ch, r);
-  x.lineWidth = 5;
-  x.strokeStyle = "rgba(34,227,255,0.85)";
+  x.lineWidth = 6;
+  x.strokeStyle = "rgba(34,227,255,0.95)";
   x.stroke();
   // chip
   x.fillStyle = "rgba(34,227,255,0.85)";
