@@ -29,7 +29,7 @@ export function ClientLogoStrip({ className }: { className?: string }) {
         {row.map((name, i) => (
           <div
             key={`${name}-${i}`}
-            className="flex h-10 min-w-[140px] items-center justify-center rounded-md ps-4 pe-4 text-sm font-medium tracking-wide grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-[opacity,filter] duration-300 text-muted-foreground hover:text-primary"
+            className="flex h-10 min-w-[140px] items-center justify-center rounded-md ps-4 pe-4 text-sm font-medium tracking-wide grayscale opacity-80 hover:opacity-100 hover:grayscale-0 transition-[opacity,filter] duration-300 text-foreground/70 hover:text-primary"
             title={`${name} — logo placeholder`}
           >
             {name}
