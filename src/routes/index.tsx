@@ -128,7 +128,7 @@ function HomePage() {
                 <Button size="lg" className="w-full sm:w-auto">
                   {t("hero.ctaPrimary")} <ArrowRight size={16} />
                 </Button>
-                <Button size="lg" variant="ghost" className="w-full sm:w-auto">{t("hero.ctaSecondary")}</Button>
+                <Button size="lg" variant="ghost" className="w-full sm:w-auto lg:text-white lg:border-white/30 lg:hover:bg-white/10 lg:hover:border-white/50">{t("hero.ctaSecondary")}</Button>
               </div>
             </Reveal>
             <Reveal delay={320} className="mt-10">
