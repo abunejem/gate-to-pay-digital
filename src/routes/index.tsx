@@ -54,16 +54,19 @@ const STORY_STEPS = [
     eyebrow: "The challenge",
     title: "Growth multiplies complexity.",
     body: "More payment flows, more providers, more rails, more compliance. Every new market, product and partner adds operational and regulatory weight.",
+    visual: "challenge" as const,
   },
   {
     eyebrow: "The platform",
     title: "One regulated platform, every connection.",
     body: "Gate to Pay connects your payment providers, banks, systems and rails behind one platform — with smart routing, automation, reconciliation and real-time visibility.",
+    visual: "platform" as const,
   },
   {
     eyebrow: "The result",
     title: "Scale, safely, without slowing down.",
     body: "Scale your business · Stay compliant & safe · Operate efficiently · See everything, act faster.",
+    visual: "result" as const,
   },
 ];
 
