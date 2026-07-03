@@ -291,6 +291,20 @@ function Scene({ reduced, variant }: SceneProps) {
     if (reduced) invalidate();
   }, [reduced, invalidate]);
 
+  // Responsive reframe: scale down on narrow desktops so nothing clips
+  useEffect(() => {
+    const g = groupRef.current;
+    if (!g) return;
+    if (size.width < 1100) {
+      g.scale.setScalar(0.82);
+      g.position.x = -0.4;
+    } else {
+      g.scale.setScalar(1);
+      g.position.x = 0;
+    }
+    invalidate();
+  }, [size.width, invalidate]);
+
   useFrame((state) => {
     if (reduced) return;
     const t = state.clock.getElapsedTime();
