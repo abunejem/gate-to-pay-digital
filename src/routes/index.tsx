@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { StickyNav } from "@/components/gtp/StickyNav";
+import { HeroCanvas } from "@/components/gtp/HeroCanvas";
 import { Footer } from "@/components/gtp/Footer";
 import { Button } from "@/components/gtp/Button";
 import { BentoTile } from "@/components/gtp/BentoTile";
@@ -91,38 +92,57 @@ function HomePage() {
           className="motion-gradient-mesh pointer-events-none absolute inset-0 -z-10 opacity-60"
           style={{
             background:
-              "radial-gradient(60% 40% at 50% 0%, rgba(34,227,255,0.18), transparent 70%), radial-gradient(40% 30% at 80% 30%, rgba(10,138,169,0.18), transparent 70%)",
+              "radial-gradient(1000px 600px at 72% 40%, rgba(34,227,255,0.18), transparent 60%), radial-gradient(700px 500px at 15% 80%, rgba(10,138,169,0.16), transparent 60%)",
           }}
         />
-        <div className="mx-auto max-w-5xl text-center">
-          <Reveal>
-            <Pill tone="primary" className="mb-6">{t("hero.eyebrow")}</Pill>
-          </Reveal>
-          <Reveal delay={80}>
-            <h1 className="text-display font-semibold">
-              {t("hero.h1Before")}
-              <span className="text-primary dark:glow-text">{t("hero.h1Highlight")}</span>
-              {t("hero.h1After")}
-            </h1>
-          </Reveal>
-          <Reveal delay={160}>
-            <p className="mx-auto mt-6 max-w-2xl text-body-lg text-muted-foreground">
-              {t("hero.sub")}
-            </p>
-          </Reveal>
-          <Reveal delay={240}>
-            <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center gap-3">
-              <Button size="lg" className="w-full sm:w-auto">
-                {t("hero.ctaPrimary")} <ArrowRight size={16} />
-              </Button>
-              <Button size="lg" variant="ghost" className="w-full sm:w-auto">{t("hero.ctaSecondary")}</Button>
-            </div>
-          </Reveal>
-          <Reveal delay={320} className="mt-10">
-            <TrustBar />
-          </Reveal>
+
+        {/* Desktop: 3D canvas bleeds across the whole hero, behind the text column */}
+        <HeroCanvas className="hidden lg:block absolute inset-0" />
+
+        <div className="relative mx-auto max-w-7xl grid gap-10 lg:grid-cols-[minmax(0,560px)_1fr] items-center">
+          <div className="relative text-center lg:text-start">
+            {/* Legibility scrim only on lg where canvas sits behind */}
+            <div
+              aria-hidden
+              className="hidden lg:block absolute -inset-6 -z-10 rounded-3xl bg-gradient-to-r from-background via-background/85 to-transparent"
+            />
+            <Reveal>
+              <Pill tone="primary" className="mb-6">{t("hero.eyebrow")}</Pill>
+            </Reveal>
+            <Reveal delay={80}>
+              <h1 className="text-display font-semibold">
+                {t("hero.h1Before")}
+                <span className="text-primary dark:glow-text">{t("hero.h1Highlight")}</span>
+                {t("hero.h1After")}
+              </h1>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="mx-auto lg:mx-0 mt-6 max-w-2xl text-body-lg text-muted-foreground">
+                {t("hero.sub")}
+              </p>
+            </Reveal>
+            <Reveal delay={240}>
+              <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center lg:justify-start gap-3">
+                <Button size="lg" className="w-full sm:w-auto">
+                  {t("hero.ctaPrimary")} <ArrowRight size={16} />
+                </Button>
+                <Button size="lg" variant="ghost" className="w-full sm:w-auto">{t("hero.ctaSecondary")}</Button>
+              </div>
+            </Reveal>
+            <Reveal delay={320} className="mt-10">
+              <TrustBar />
+            </Reveal>
+          </div>
+          {/* Right column spacer reserves canvas space on desktop so text doesn't jump */}
+          <div aria-hidden className="hidden lg:block h-[560px]" />
+        </div>
+
+        {/* Mobile: canvas as its own band below the text */}
+        <div className="lg:hidden mt-10 relative h-[320px] rounded-card overflow-hidden border border-border">
+          <HeroCanvas className="absolute inset-0" />
         </div>
       </section>
+
 
       {/* Stats */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-border">
