@@ -111,9 +111,6 @@ function HomePage() {
 
         <div className="relative z-20 mx-auto max-w-7xl">
           <div className="relative text-center lg:text-start max-w-[600px] mx-auto lg:mx-0">
-            <Reveal>
-              <Pill tone="primary" className="mb-6">{t("hero.eyebrow")}</Pill>
-            </Reveal>
             <Reveal delay={80}>
               <h1 className="text-display font-semibold lg:text-white">
                 {t("hero.h1Before")}
