@@ -11,7 +11,7 @@ import { ClientLogoStrip } from "@/components/gtp/ClientLogoStrip";
 import { ApiResponseCard } from "@/components/gtp/ApiResponseCard";
 import { Reveal } from "@/components/gtp/Reveal";
 import { Pill } from "@/components/gtp/primitives";
-import { StoryImageRows } from "@/components/gtp/StoryImageRows";
+import { StoryScroll } from "@/components/gtp/StoryScroll";
 import storyChallengeImg from "@/assets/story-challenge.png.asset.json";
 import storyPlatformImg from "@/assets/story-platform.png.asset.json";
 import storyResultImg from "@/assets/story-result.png.asset.json";
