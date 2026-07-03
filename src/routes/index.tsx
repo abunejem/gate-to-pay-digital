@@ -11,7 +11,10 @@ import { ClientLogoStrip } from "@/components/gtp/ClientLogoStrip";
 import { ApiResponseCard } from "@/components/gtp/ApiResponseCard";
 import { Reveal } from "@/components/gtp/Reveal";
 import { Pill } from "@/components/gtp/primitives";
-import { StoryScroll } from "@/components/gtp/StoryScroll";
+import { StoryImageRows } from "@/components/gtp/StoryImageRows";
+import storyChallengeImg from "@/assets/story-challenge.png.asset.json";
+import storyPlatformImg from "@/assets/story-platform.png.asset.json";
+import storyResultImg from "@/assets/story-result.png.asset.json";
 import { SuccessStoryCarousel, type SuccessSlide } from "@/components/gtp/SuccessStoryCarousel";
 import { MoneyFlowDiagram } from "@/components/gtp/MoneyFlowDiagram";
 import { useT } from "@/lib/i18n";
@@ -50,24 +53,29 @@ const WHY = [
   { title: "Jordan-native, globally connected", body: "Local rails and the Mastercard network in one platform." },
 ];
 
-const STORY_STEPS = [
+const STORY_ROWS = [
   {
     eyebrow: "The challenge",
     title: "Growth multiplies complexity.",
     body: "More payment flows, more providers, more rails, more compliance. Every new market, product and partner adds operational and regulatory weight.",
-    visual: "challenge" as const,
+    image: storyChallengeImg,
+    imageAlt: "Tangled network of glowing connections representing payment complexity",
+    overlayStat: { label: "Every rail. Every provider." },
   },
   {
     eyebrow: "The platform",
     title: "One regulated platform, every connection.",
-    body: "Gate to Pay connects your payment providers, banks, systems and rails behind one platform — with smart routing, automation, reconciliation and real-time visibility.",
-    visual: "platform" as const,
+    body: "Gate to Pay connects your providers, banks, systems and rails behind one platform — with smart routing, automation, reconciliation and real-time visibility.",
+    image: storyPlatformImg,
+    imageAlt: "Central platform hub with radiating connections to payment endpoints",
+    overlayStat: { label: "Real-time settlement" },
   },
   {
     eyebrow: "The result",
     title: "Scale, safely, without slowing down.",
     body: "Scale your business · Stay compliant & safe · Operate efficiently · See everything, act faster.",
-    visual: "result" as const,
+    image: storyResultImg,
+    imageAlt: "Ascending glowing bars representing accelerating growth",
   },
 ];
 
