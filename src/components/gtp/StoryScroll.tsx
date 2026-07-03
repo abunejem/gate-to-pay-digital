@@ -54,7 +54,7 @@ export function StoryScroll({ heading, steps, className }: StoryScrollProps) {
     };
   }, [reduced, steps.length]);
 
-  if (reduced) {
+  if (reduced || isMobile) {
     return (
       <section
         className={cn("ps-6 pe-6 py-20", className)}
