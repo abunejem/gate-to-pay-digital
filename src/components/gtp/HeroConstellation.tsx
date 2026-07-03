@@ -369,7 +369,7 @@ function Scene({ reduced, variant }: SceneProps) {
           position={cardPos.toArray()}
           rotation={[-0.12, -0.42, 0.1]}
         >
-          <planeGeometry args={[3.5, 2.21]} />
+          <planeGeometry args={[2.98, 1.88]} />
           <meshBasicMaterial map={cardTex} transparent />
         </mesh>
 
