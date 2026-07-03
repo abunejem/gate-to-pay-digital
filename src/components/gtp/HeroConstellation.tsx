@@ -353,22 +353,22 @@ function Scene({ reduced, variant }: SceneProps) {
       <group ref={groupRef}>
         {/* Core */}
         <group ref={coreRef} position={corePos.toArray()}>
-          <sprite scale={[4.2, 4.2, 1]}>
+          <sprite scale={[4.8, 4.8, 1]}>
             <spriteMaterial
               map={glowTex}
               transparent
               blending={THREE.AdditiveBlending}
               depthWrite={false}
-              opacity={0.9}
+              opacity={1}
             />
           </sprite>
           <mesh>
-            <sphereGeometry args={[0.55, 32, 32]} />
-            <meshBasicMaterial color={TEAL} transparent opacity={0.9} />
+            <sphereGeometry args={[0.58, 32, 32]} />
+            <meshBasicMaterial color={TEAL} transparent opacity={0.95} />
           </mesh>
           <mesh ref={wireRef}>
-            <sphereGeometry args={[0.78, 20, 20]} />
-            <meshBasicMaterial color={NEON} wireframe transparent opacity={0.35} />
+            <sphereGeometry args={[0.82, 20, 20]} />
+            <meshBasicMaterial color={NEON} wireframe transparent opacity={0.4} />
           </mesh>
         </group>
 
