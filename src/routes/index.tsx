@@ -71,6 +71,52 @@ const STORY_STEPS = [
   },
 ];
 
+const SUCCESS_STORIES: SuccessSlide[] = [
+  {
+    id: "pharma",
+    eyebrow: "Live in production · Supply Chain Payments",
+    title: "From WhatsApp orders and spreadsheet credit to instant, reconciled payments.",
+    body: "A pharmaceutical distributor replaced manual ordering, spreadsheet credit management and manual reconciliation with Gate to Pay. Orders moved off WhatsApp, credit is checked before every order, and invoices are delivered and paid instantly.",
+    href: "#",
+  },
+  {
+    id: "trading",
+    eyebrow: "Live in production · Trading & Payouts",
+    title: "Instant client withdrawals and affiliate payouts across 17+ countries.",
+    body: "A trading platform uses Gate to Pay to fund client withdrawals and affiliate commissions the moment they're approved — cards, wallets and bank rails, orchestrated behind one API.",
+    metric: { value: "17+", label: "countries served" },
+    href: "#",
+    sample: true,
+  },
+  {
+    id: "retail",
+    eyebrow: "Live in production · Omnichannel Acceptance",
+    title: "One acceptance layer across POS and online, settled in one place.",
+    body: "A retail chain unified in-store terminals and its online checkout on Gate to Pay. Every channel, every method, one reconciled settlement file — no more month-end matching across providers.",
+    metric: { value: "1", label: "settlement file" },
+    href: "#",
+    sample: true,
+  },
+  {
+    id: "delivery",
+    eyebrow: "Live in production · Fleet Funding",
+    title: "Just-in-time courier card funding, with no idle float.",
+    body: "A delivery platform funds courier cards the moment an order is dispatched and sweeps unused balances back automatically — capital stays working, not sitting on cards.",
+    metric: { value: "0", label: "idle float" },
+    href: "#",
+    sample: true,
+  },
+  {
+    id: "youth-club",
+    eyebrow: "Live in production · Member Wallets",
+    title: "Member wallets, digital dues and benefit distribution in one app.",
+    body: "A youth club moved membership dues, benefit distribution and member spending onto Gate to Pay wallets — one tap to pay, one dashboard for the association.",
+    metric: { value: "1-tap", label: "dues & benefits" },
+    href: "#",
+    sample: true,
+  },
+];
+
 const API_SAMPLE = `{
   "id": "pmt_01H8Q4ZK9J7RXAB2C3D4E5F6G7",
   "amount": 2500,
