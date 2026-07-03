@@ -138,11 +138,6 @@ function HomePage() {
           <div aria-hidden className="hidden lg:block h-[560px]" />
         </div>
 
-
-        {/* Mobile: canvas as its own band below the text */}
-        <div className="lg:hidden mt-10 relative h-[320px] rounded-card overflow-hidden border border-border">
-          <HeroCanvas className="absolute inset-0" />
-        </div>
       </section>
 
 
