@@ -25,9 +25,9 @@ export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="border-t border-border bg-elevated">
-      <div className="mx-auto max-w-7xl ps-6 pe-6 py-16">
-        <div className="grid gap-10 md:grid-cols-6">
-          <div className="md:col-span-2">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
+        <div className="grid gap-8 sm:gap-10 grid-cols-2 md:grid-cols-6">
+          <div className="col-span-2 md:col-span-2">
             <Logo variant="horizontal" height={32} />
             <p className="mt-4 text-body-sm text-muted-foreground max-w-xs">
               {t("brand.tagline")}. Central Bank of Jordan licensed since 2014.
