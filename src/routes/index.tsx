@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { StickyNav } from "@/components/gtp/StickyNav";
+import { HeroCanvas } from "@/components/gtp/HeroCanvas";
 import { Footer } from "@/components/gtp/Footer";
 import { Button } from "@/components/gtp/Button";
 import { BentoTile } from "@/components/gtp/BentoTile";
