@@ -37,15 +37,15 @@ export function MoneyFlowDiagram({ className }: { className?: string }) {
 
         {/* Hub */}
         <g>
-          <circle cx="400" cy="190" r="58"
+          <circle cx="400" cy="190" r="72"
             fill="var(--color-elevated)"
             stroke="var(--color-primary)"
             strokeWidth="1.5" />
-          <text x="400" y="182" textAnchor="middle"
-            fill="var(--color-primary)" fontSize="16" fontWeight="600"
-            letterSpacing="1.2">GATE TO PAY</text>
-          <text x="400" y="206" textAnchor="middle"
-            fill="var(--color-muted-foreground)" fontSize="13">smart routing</text>
+          <foreignObject x="340" y="140" width="120" height="100">
+            <div className="w-full h-full flex items-center justify-center">
+              <Logo variant="vertical" height={80} />
+            </div>
+          </foreignObject>
         </g>
 
         {/* Left path source -> hub */}
