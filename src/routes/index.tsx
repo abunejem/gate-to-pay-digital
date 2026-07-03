@@ -11,7 +11,7 @@ import { ClientLogoStrip } from "@/components/gtp/ClientLogoStrip";
 import { ApiResponseCard } from "@/components/gtp/ApiResponseCard";
 import { Reveal } from "@/components/gtp/Reveal";
 import { Pill } from "@/components/gtp/primitives";
-import { StoryImageRows } from "@/components/gtp/StoryImageRows";
+import { StoryScroll } from "@/components/gtp/StoryScroll";
 import storyChallengeImg from "@/assets/story-challenge.png.asset.json";
 import storyPlatformImg from "@/assets/story-platform.png.asset.json";
 import storyResultImg from "@/assets/story-result.png.asset.json";
@@ -53,7 +53,7 @@ const WHY = [
   { title: "Jordan-native, globally connected", body: "Local rails and the Mastercard network in one platform." },
 ];
 
-const STORY_ROWS = [
+const STORY_STEPS = [
   {
     eyebrow: "The challenge",
     title: "Growth multiplies complexity.",
@@ -245,10 +245,10 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Story — image-led rows */}
-      <StoryImageRows
-        intro="As you scale, money gets complicated. We make it simple."
-        rows={STORY_ROWS}
+      {/* Story scrollytelling */}
+      <StoryScroll
+        heading="As you scale, money gets complicated. We make it simple."
+        steps={STORY_STEPS}
       />
 
       {/* Signature — Multi-rail diagram */}
