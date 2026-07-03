@@ -175,15 +175,15 @@ function getNodeTex(label: string, draw: IconDraw) {
     w = S - p * 2,
     h = S - p * 2;
   x.save();
-  x.shadowColor = "rgba(34,227,255,0.45)";
-  x.shadowBlur = 40;
+  x.shadowColor = "rgba(34,227,255,0.6)";
+  x.shadowBlur = 44;
   roundRect(x, p, p, w, h, 44);
-  x.fillStyle = "rgba(8,38,56,0.92)";
+  x.fillStyle = "rgba(10,44,62,0.95)";
   x.fill();
   x.restore();
   roundRect(x, p, p, w, h, 44);
   x.lineWidth = 4;
-  x.strokeStyle = "rgba(34,227,255,0.55)";
+  x.strokeStyle = "rgba(34,227,255,0.7)";
   x.stroke();
   x.save();
   x.translate(S / 2, S / 2 - 24);
