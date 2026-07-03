@@ -215,10 +215,10 @@ interface NodeDef {
 }
 
 const ALL_NODES: NodeDef[] = [
-  { label: "Wallets", icon: icons.wallet, base: [3.7, 1.35, -0.9], amp: 0.18, speed: 0.6 },
-  { label: "Acceptance", icon: icons.pos, base: [4.0, -1.15, -0.7], amp: 0.2, speed: 0.5 },
-  { label: "Payouts", icon: icons.bolt, base: [-0.3, 1.9, -1.1], amp: 0.22, speed: 0.7 },
-  { label: "Collections", icon: icons.split, base: [-0.1, -1.9, -1.0], amp: 0.2, speed: 0.55 },
+  { label: "Wallets", icon: icons.wallet, base: [4.45, 1.25, -0.7], amp: 0.18, speed: 0.6 },
+  { label: "Acceptance", icon: icons.pos, base: [4.7, -1.1, -0.6], amp: 0.2, speed: 0.5 },
+  { label: "Payouts", icon: icons.bolt, base: [1.15, 1.95, -1.0], amp: 0.22, speed: 0.7 },
+  { label: "Collections", icon: icons.split, base: [1.35, -1.9, -0.9], amp: 0.2, speed: 0.55 },
 ];
 
 
