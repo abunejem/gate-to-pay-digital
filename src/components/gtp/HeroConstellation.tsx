@@ -215,10 +215,10 @@ interface NodeDef {
 }
 
 const ALL_NODES: NodeDef[] = [
-  { label: "Wallets", icon: icons.wallet, base: [4.45, 1.25, -0.7], amp: 0.18, speed: 0.6 },
-  { label: "Acceptance", icon: icons.pos, base: [4.7, -1.1, -0.6], amp: 0.2, speed: 0.5 },
-  { label: "Payouts", icon: icons.bolt, base: [1.15, 1.95, -1.0], amp: 0.22, speed: 0.7 },
-  { label: "Collections", icon: icons.split, base: [1.35, -1.9, -0.9], amp: 0.2, speed: 0.55 },
+  { label: "Wallets", icon: icons.wallet, base: [5.45, 1.25, -0.7], amp: 0.18, speed: 0.6 },
+  { label: "Acceptance", icon: icons.pos, base: [5.7, -1.1, -0.6], amp: 0.2, speed: 0.5 },
+  { label: "Payouts", icon: icons.bolt, base: [2.15, 1.95, -1.0], amp: 0.22, speed: 0.7 },
+  { label: "Collections", icon: icons.split, base: [2.35, -1.9, -0.9], amp: 0.2, speed: 0.55 },
 ];
 
 
@@ -243,8 +243,8 @@ function Scene({ reduced, variant }: SceneProps) {
   const nodes = variant === "mobile" ? [ALL_NODES[0], ALL_NODES[2]] : ALL_NODES;
   const particleCount = variant === "mobile" ? 60 : 170;
 
-  const corePos = useMemo(() => new THREE.Vector3(2.4, 0, -0.4), []);
-  const cardPos = useMemo(() => new THREE.Vector3(0.75, 0.1, 0.9), []);
+  const corePos = useMemo(() => new THREE.Vector3(3.4, 0, -0.4), []);
+  const cardPos = useMemo(() => new THREE.Vector3(1.9, 0.1, 0.9), []);
 
 
   // Rail curves: core -> card + each node
@@ -296,7 +296,10 @@ function Scene({ reduced, variant }: SceneProps) {
     const g = groupRef.current;
     if (!g) return;
     if (size.width < 1100) {
-      g.scale.setScalar(0.82);
+      g.scale.setScalar(0.78);
+      g.position.x = -0.9;
+    } else if (size.width < 1300) {
+      g.scale.setScalar(0.9);
       g.position.x = -0.4;
     } else {
       g.scale.setScalar(1);

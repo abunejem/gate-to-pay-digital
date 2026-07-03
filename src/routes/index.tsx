@@ -105,7 +105,7 @@ function HomePage() {
           className="hidden lg:block absolute inset-0 z-10 pointer-events-none"
           style={{
             background:
-              "linear-gradient(90deg,#04131F 0%,rgba(4,19,31,0.94) 26%,rgba(4,19,31,0.55) 46%,rgba(4,19,31,0.1) 64%,transparent 78%)",
+              "linear-gradient(90deg,#04131F 0%,rgba(4,19,31,0.96) 30%,rgba(4,19,31,0.75) 46%,rgba(4,19,31,0.35) 64%,transparent 80%)",
           }}
         />
 
