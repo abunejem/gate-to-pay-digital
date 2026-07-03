@@ -57,8 +57,8 @@ function getCardTex() {
     r = 48;
   // shadow base
   x.save();
-  x.shadowColor = "rgba(34,227,255,0.7)";
-  x.shadowBlur = 70;
+  x.shadowColor = "rgba(34,227,255,0.9)";
+  x.shadowBlur = 80;
   roundRect(x, cx, cy, cw, ch, r);
   x.fillStyle = "#072a3a";
   x.fill();
