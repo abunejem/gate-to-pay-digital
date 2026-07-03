@@ -296,7 +296,10 @@ function Scene({ reduced, variant }: SceneProps) {
     const g = groupRef.current;
     if (!g) return;
     if (size.width < 1100) {
-      g.scale.setScalar(0.82);
+      g.scale.setScalar(0.78);
+      g.position.x = -0.9;
+    } else if (size.width < 1300) {
+      g.scale.setScalar(0.9);
       g.position.x = -0.4;
     } else {
       g.scale.setScalar(1);
