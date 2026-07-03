@@ -87,38 +87,42 @@ function HomePage() {
       <StickyNav />
 
       {/* Hero */}
-      <section className="relative px-4 sm:px-6 pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
+      <section className="relative px-4 sm:px-6 pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden lg:bg-[#04131F]">
         <div
           className="motion-gradient-mesh pointer-events-none absolute inset-0 -z-10 opacity-60"
           style={{
             background:
-              "radial-gradient(1000px 600px at 72% 40%, rgba(34,227,255,0.18), transparent 60%), radial-gradient(700px 500px at 15% 80%, rgba(10,138,169,0.16), transparent 60%)",
+              "radial-gradient(1100px 700px at 62% 45%, rgba(34,227,255,0.16), transparent 60%), radial-gradient(800px 600px at 20% 85%, rgba(10,138,169,0.14), transparent 60%)",
           }}
         />
 
-        {/* Desktop: 3D canvas confined to the right ~55% */}
-        <div className="hidden lg:block absolute right-0 top-0 h-full w-[55%] z-0">
-          <HeroCanvas className="absolute inset-0" />
-          <div
-            aria-hidden
-            className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-r from-background via-background/70 to-transparent"
-          />
-        </div>
+        {/* Desktop: full-bleed 3D canvas behind everything */}
+        <HeroCanvas className="hidden lg:block absolute inset-0 z-0" />
 
-        <div className="relative z-20 mx-auto max-w-7xl grid gap-10 lg:grid-cols-[minmax(0,560px)_1fr] items-center">
-          <div className="relative text-center lg:text-start">
+        {/* Desktop: left→right legibility scrim over the canvas */}
+        <div
+          aria-hidden
+          className="hidden lg:block absolute inset-0 z-10 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(90deg,#04131F 0%,rgba(4,19,31,0.94) 26%,rgba(4,19,31,0.55) 46%,rgba(4,19,31,0.1) 64%,transparent 78%)",
+          }}
+        />
+
+        <div className="relative z-20 mx-auto max-w-7xl">
+          <div className="relative text-center lg:text-start max-w-[600px] mx-auto lg:mx-0">
             <Reveal>
               <Pill tone="primary" className="mb-6">{t("hero.eyebrow")}</Pill>
             </Reveal>
             <Reveal delay={80}>
-              <h1 className="text-display font-semibold">
+              <h1 className="text-display font-semibold lg:text-white">
                 {t("hero.h1Before")}
                 <span className="text-primary dark:glow-text">{t("hero.h1Highlight")}</span>
                 {t("hero.h1After")}
               </h1>
             </Reveal>
             <Reveal delay={160}>
-              <p className="mx-auto lg:mx-0 mt-6 max-w-2xl text-body-lg text-muted-foreground">
+              <p className="mx-auto lg:mx-0 mt-6 max-w-2xl text-body-lg text-muted-foreground lg:text-[#c3d6df]">
                 {t("hero.sub")}
               </p>
             </Reveal>
@@ -134,8 +138,6 @@ function HomePage() {
               <TrustBar />
             </Reveal>
           </div>
-          {/* Right column spacer reserves canvas space on desktop so text doesn't jump */}
-          <div aria-hidden className="hidden lg:block h-[560px]" />
         </div>
 
       </section>

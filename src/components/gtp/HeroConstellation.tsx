@@ -57,8 +57,8 @@ function getCardTex() {
     r = 48;
   // shadow base
   x.save();
-  x.shadowColor = "rgba(34,227,255,0.7)";
-  x.shadowBlur = 70;
+  x.shadowColor = "rgba(34,227,255,0.9)";
+  x.shadowBlur = 80;
   roundRect(x, cx, cy, cw, ch, r);
   x.fillStyle = "#072a3a";
   x.fill();
@@ -82,8 +82,8 @@ function getCardTex() {
   x.restore();
   // neon stroke
   roundRect(x, cx, cy, cw, ch, r);
-  x.lineWidth = 5;
-  x.strokeStyle = "rgba(34,227,255,0.85)";
+  x.lineWidth = 6;
+  x.strokeStyle = "rgba(34,227,255,0.95)";
   x.stroke();
   // chip
   x.fillStyle = "rgba(34,227,255,0.85)";
@@ -175,15 +175,15 @@ function getNodeTex(label: string, draw: IconDraw) {
     w = S - p * 2,
     h = S - p * 2;
   x.save();
-  x.shadowColor = "rgba(34,227,255,0.45)";
-  x.shadowBlur = 40;
+  x.shadowColor = "rgba(34,227,255,0.6)";
+  x.shadowBlur = 44;
   roundRect(x, p, p, w, h, 44);
-  x.fillStyle = "rgba(8,38,56,0.92)";
+  x.fillStyle = "rgba(10,44,62,0.95)";
   x.fill();
   x.restore();
   roundRect(x, p, p, w, h, 44);
   x.lineWidth = 4;
-  x.strokeStyle = "rgba(34,227,255,0.55)";
+  x.strokeStyle = "rgba(34,227,255,0.7)";
   x.stroke();
   x.save();
   x.translate(S / 2, S / 2 - 24);
@@ -215,10 +215,10 @@ interface NodeDef {
 }
 
 const ALL_NODES: NodeDef[] = [
-  { label: "Wallets", icon: icons.wallet, base: [3.7, 1.35, -0.9], amp: 0.18, speed: 0.6 },
-  { label: "Acceptance", icon: icons.pos, base: [4.0, -1.15, -0.7], amp: 0.2, speed: 0.5 },
-  { label: "Payouts", icon: icons.bolt, base: [-0.3, 1.9, -1.1], amp: 0.22, speed: 0.7 },
-  { label: "Collections", icon: icons.split, base: [-0.1, -1.9, -1.0], amp: 0.2, speed: 0.55 },
+  { label: "Wallets", icon: icons.wallet, base: [4.45, 1.25, -0.7], amp: 0.18, speed: 0.6 },
+  { label: "Acceptance", icon: icons.pos, base: [4.7, -1.1, -0.6], amp: 0.2, speed: 0.5 },
+  { label: "Payouts", icon: icons.bolt, base: [1.15, 1.95, -1.0], amp: 0.22, speed: 0.7 },
+  { label: "Collections", icon: icons.split, base: [1.35, -1.9, -0.9], amp: 0.2, speed: 0.55 },
 ];
 
 
@@ -238,13 +238,13 @@ function Scene({ reduced, variant }: SceneProps) {
   const pulseRefs = useRef<THREE.Sprite[]>([]);
   const pointsRef = useRef<THREE.Points>(null);
   const parallax = useRef({ mx: 0, my: 0, tx: 0, ty: 0 });
-  const { invalidate, gl } = useThree();
+  const { invalidate, gl, size } = useThree();
 
   const nodes = variant === "mobile" ? [ALL_NODES[0], ALL_NODES[2]] : ALL_NODES;
-  const particleCount = variant === "mobile" ? 60 : 150;
+  const particleCount = variant === "mobile" ? 60 : 170;
 
-  const corePos = useMemo(() => new THREE.Vector3(1.6, 0, -0.4), []);
-  const cardPos = useMemo(() => new THREE.Vector3(-0.6, 0.15, 0.8), []);
+  const corePos = useMemo(() => new THREE.Vector3(2.4, 0, -0.4), []);
+  const cardPos = useMemo(() => new THREE.Vector3(0.75, 0.1, 0.9), []);
 
 
   // Rail curves: core -> card + each node
@@ -290,6 +290,20 @@ function Scene({ reduced, variant }: SceneProps) {
   useEffect(() => {
     if (reduced) invalidate();
   }, [reduced, invalidate]);
+
+  // Responsive reframe: scale down on narrow desktops so nothing clips
+  useEffect(() => {
+    const g = groupRef.current;
+    if (!g) return;
+    if (size.width < 1100) {
+      g.scale.setScalar(0.82);
+      g.position.x = -0.4;
+    } else {
+      g.scale.setScalar(1);
+      g.position.x = 0;
+    }
+    invalidate();
+  }, [size.width, invalidate]);
 
   useFrame((state) => {
     if (reduced) return;
@@ -339,22 +353,22 @@ function Scene({ reduced, variant }: SceneProps) {
       <group ref={groupRef}>
         {/* Core */}
         <group ref={coreRef} position={corePos.toArray()}>
-          <sprite scale={[4.2, 4.2, 1]}>
+          <sprite scale={[4.8, 4.8, 1]}>
             <spriteMaterial
               map={glowTex}
               transparent
               blending={THREE.AdditiveBlending}
               depthWrite={false}
-              opacity={0.9}
+              opacity={1}
             />
           </sprite>
           <mesh>
-            <sphereGeometry args={[0.55, 32, 32]} />
-            <meshBasicMaterial color={TEAL} transparent opacity={0.9} />
+            <sphereGeometry args={[0.58, 32, 32]} />
+            <meshBasicMaterial color={TEAL} transparent opacity={0.95} />
           </mesh>
           <mesh ref={wireRef}>
-            <sphereGeometry args={[0.78, 20, 20]} />
-            <meshBasicMaterial color={NEON} wireframe transparent opacity={0.35} />
+            <sphereGeometry args={[0.82, 20, 20]} />
+            <meshBasicMaterial color={NEON} wireframe transparent opacity={0.4} />
           </mesh>
         </group>
 
@@ -362,9 +376,9 @@ function Scene({ reduced, variant }: SceneProps) {
         <mesh
           ref={cardRef}
           position={cardPos.toArray()}
-          rotation={[-0.12, -0.42, 0.1]}
+          rotation={[-0.12, -0.4, 0.1]}
         >
-          <planeGeometry args={[2.98, 1.88]} />
+          <planeGeometry args={[3.7, 2.33]} />
           <meshBasicMaterial map={cardTex} transparent />
         </mesh>
 
@@ -392,7 +406,7 @@ function Scene({ reduced, variant }: SceneProps) {
                 new THREE.LineBasicMaterial({
                   color: NEON,
                   transparent: true,
-                  opacity: 0.28,
+                  opacity: 0.34,
                 }),
               )
             }
@@ -406,7 +420,7 @@ function Scene({ reduced, variant }: SceneProps) {
             ref={(el) => {
               if (el) pulseRefs.current[i] = el;
             }}
-            scale={[0.5, 0.5, 1]}
+            scale={[0.55, 0.55, 1]}
           >
             <spriteMaterial
               map={glowTex}
