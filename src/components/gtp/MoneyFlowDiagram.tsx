@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Logo } from "./Logo";
 
 // Static SVG diagram with pulses animated via CSS. Reduced-motion strips the
 // animation because the class is prefixed with `motion-` (see styles.css).
@@ -36,28 +37,28 @@ export function MoneyFlowDiagram({ className }: { className?: string }) {
 
         {/* Hub */}
         <g>
-          <circle cx="400" cy="190" r="58"
+          <circle cx="400" cy="190" r="72"
             fill="var(--color-elevated)"
             stroke="var(--color-primary)"
             strokeWidth="1.5" />
-          <text x="400" y="182" textAnchor="middle"
-            fill="var(--color-primary)" fontSize="16" fontWeight="600"
-            letterSpacing="1.2">GATE TO PAY</text>
-          <text x="400" y="206" textAnchor="middle"
-            fill="var(--color-muted-foreground)" fontSize="13">smart routing</text>
+          <foreignObject x="340" y="140" width="120" height="100">
+            <div className="w-full h-full flex items-center justify-center">
+              <Logo variant="vertical" height={80} />
+            </div>
+          </foreignObject>
         </g>
 
         {/* Left path source -> hub */}
-        <path d="M 170 190 L 342 190"
+        <path d="M 170 190 L 328 190"
           stroke="var(--color-border-strong)" strokeWidth="1.5" fill="none" />
         <circle r="4" fill="var(--color-primary)" className="motion-flow-pulse">
-          <animateMotion dur="2.2s" repeatCount="indefinite" path="M 170 190 L 342 190" />
+          <animateMotion dur="2.2s" repeatCount="indefinite" path="M 170 190 L 328 190" />
         </circle>
 
         {/* Right paths hub -> rails (4 nodes) */}
         {RAILS.map((label, i) => {
           const y = 60 + i * 87;
-          const path = `M 458 190 C 560 190 560 ${y + 20} 640 ${y + 20}`;
+          const path = `M 472 190 C 560 190 560 ${y + 20} 640 ${y + 20}`;
           return (
             <g key={label}>
               <path d={path} stroke="var(--color-border-strong)" strokeWidth="1.5" fill="none" />
