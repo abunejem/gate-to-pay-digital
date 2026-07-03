@@ -220,11 +220,12 @@ interface NodeDef {
 }
 
 const ALL_NODES: NodeDef[] = [
-  { label: "Wallets", icon: icons.wallet, base: [4.9, 1.35, -0.9], amp: 0.18, speed: 0.6 },
-  { label: "Acceptance", icon: icons.pos, base: [5.2, -1.15, -0.7], amp: 0.2, speed: 0.5 },
-  { label: "Payouts", icon: icons.bolt, base: [0.9, 1.9, -1.1], amp: 0.22, speed: 0.7 },
-  { label: "Collections", icon: icons.split, base: [1.1, -1.9, -1.0], amp: 0.2, speed: 0.55 },
+  { label: "Wallets", icon: icons.wallet, base: [3.7, 1.35, -0.9], amp: 0.18, speed: 0.6 },
+  { label: "Acceptance", icon: icons.pos, base: [4.0, -1.15, -0.7], amp: 0.2, speed: 0.5 },
+  { label: "Payouts", icon: icons.bolt, base: [-0.3, 1.9, -1.1], amp: 0.22, speed: 0.7 },
+  { label: "Collections", icon: icons.split, base: [-0.1, -1.9, -1.0], amp: 0.2, speed: 0.55 },
 ];
+
 
 // ---------- Scene ----------
 
@@ -247,8 +248,9 @@ function Scene({ reduced, variant }: SceneProps) {
   const nodes = variant === "mobile" ? [ALL_NODES[0], ALL_NODES[2]] : ALL_NODES;
   const particleCount = variant === "mobile" ? 60 : 150;
 
-  const corePos = useMemo(() => new THREE.Vector3(2.6, 0, -0.4), []);
-  const cardPos = useMemo(() => new THREE.Vector3(-0.2, 0.15, 0.8), []);
+  const corePos = useMemo(() => new THREE.Vector3(1.6, 0, -0.4), []);
+  const cardPos = useMemo(() => new THREE.Vector3(-0.6, 0.15, 0.8), []);
+
 
   // Rail curves: core -> card + each node
   const rails = useMemo(() => {
@@ -367,7 +369,7 @@ function Scene({ reduced, variant }: SceneProps) {
           position={cardPos.toArray()}
           rotation={[-0.12, -0.42, 0.1]}
         >
-          <planeGeometry args={[3.5, 2.21]} />
+          <planeGeometry args={[2.98, 1.88]} />
           <meshBasicMaterial map={cardTex} transparent />
         </mesh>
 

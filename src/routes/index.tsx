@@ -96,16 +96,17 @@ function HomePage() {
           }}
         />
 
-        {/* Desktop: 3D canvas bleeds across the whole hero, behind the text column */}
-        <HeroCanvas className="hidden lg:block absolute inset-0" />
+        {/* Desktop: 3D canvas confined to the right ~55% */}
+        <div className="hidden lg:block absolute right-0 top-0 h-full w-[55%] z-0">
+          <HeroCanvas className="absolute inset-0" />
+          <div
+            aria-hidden
+            className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-r from-background via-background/70 to-transparent"
+          />
+        </div>
 
-        <div className="relative mx-auto max-w-7xl grid gap-10 lg:grid-cols-[minmax(0,560px)_1fr] items-center">
+        <div className="relative z-20 mx-auto max-w-7xl grid gap-10 lg:grid-cols-[minmax(0,560px)_1fr] items-center">
           <div className="relative text-center lg:text-start">
-            {/* Legibility scrim only on lg where canvas sits behind */}
-            <div
-              aria-hidden
-              className="hidden lg:block absolute -inset-6 -z-10 rounded-3xl bg-gradient-to-r from-background via-background/85 to-transparent"
-            />
             <Reveal>
               <Pill tone="primary" className="mb-6">{t("hero.eyebrow")}</Pill>
             </Reveal>
@@ -136,6 +137,7 @@ function HomePage() {
           {/* Right column spacer reserves canvas space on desktop so text doesn't jump */}
           <div aria-hidden className="hidden lg:block h-[560px]" />
         </div>
+
 
         {/* Mobile: canvas as its own band below the text */}
         <div className="lg:hidden mt-10 relative h-[320px] rounded-card overflow-hidden border border-border">
