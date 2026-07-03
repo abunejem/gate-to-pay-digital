@@ -302,27 +302,11 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Featured success story */}
+      {/* Featured success stories */}
       <section className="px-4 sm:px-6 py-14 sm:py-20 border-t border-border">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <Reveal>
-            <div
-              className="rounded-card p-6 sm:p-10 md:p-14"
-              style={{ backgroundColor: "var(--color-story)", color: "var(--color-story-foreground)" }}
-            >
-              <Pill tone="primary" className="mb-4">Live in production · Supply Chain Payments</Pill>
-              <h2 className="text-h2" style={{ color: "var(--color-story-foreground)" }}>
-                From WhatsApp orders and spreadsheet credit to instant, reconciled payments.
-              </h2>
-              <p className="mt-4 max-w-2xl text-body-lg opacity-85">
-                A pharmaceutical distributor replaced manual ordering, spreadsheet credit management and
-                manual reconciliation with Gate to Pay. Orders moved off WhatsApp, credit is checked
-                before every order, and invoices are delivered and paid instantly.
-              </p>
-              <div className="mt-8">
-                <Button variant="primary">Read the story <ArrowRight size={16} /></Button>
-              </div>
-            </div>
+            <SuccessStoryCarousel slides={SUCCESS_STORIES} />
           </Reveal>
         </div>
       </section>
