@@ -406,7 +406,7 @@ function Scene({ reduced, variant }: SceneProps) {
                 new THREE.LineBasicMaterial({
                   color: NEON,
                   transparent: true,
-                  opacity: 0.28,
+                  opacity: 0.34,
                 }),
               )
             }
