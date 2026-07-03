@@ -1,71 +1,73 @@
-# Success Story Carousel
+## Rebuild story section as image-led alternating rows
 
-Replace the single featured story block in `src/routes/index.tsx` (lines 258–281) with a new `SuccessStoryCarousel` component. Keep the existing neon/story tokens (`--color-story`, `--color-story-foreground`) and section rhythm.
+Replace the current `StoryScroll` scrollytelling with three image+text rows on the same navy canvas.
 
-## New component: `src/components/gtp/SuccessStoryCarousel.tsx`
+### 1. Upload the three images as Lovable Assets
+
+Use `lovable-assets create` from `/mnt/user-uploads/challeng.png`, `platform.png`, `result.png` → pointer JSON at:
+- `src/assets/story-challenge.png.asset.json`
+- `src/assets/story-platform.png.asset.json`
+- `src/assets/story-result.png.asset.json`
+
+(Keep PNG; browsers cache via CDN. Skip WebP conversion — source is PNG and re-encoding needs a build step we don't have. Add `loading="lazy"` + `decoding="async"`.)
+
+### 2. New component: `src/components/gtp/StoryImageRows.tsx`
 
 Props:
 ```ts
-type Slide = {
-  id: string;
-  eyebrow: string;             // "Live in production · <Solution>"
+interface StoryRow {
+  eyebrow: string;
   title: string;
   body: string;
-  metric?: { value: string; label: string };
-  logo?: { src: string; alt: string };
-  href: string;                // "Read the story" link
-  sample?: boolean;            // renders a small "sample — to verify" tag
-};
+  image: { url: string };
+  imageAlt: string;
+  overlayStat?: { label: string };
+}
+interface Props { intro: string; rows: StoryRow[]; }
 ```
 
-### Rendering (SSR-first, crawlable)
-- Root: `<section aria-roledescription="carousel" aria-label="Customer success stories">`.
-- Track: horizontal flex row, `scroll-snap-type: x mandatory`, `overflow-x-auto`, one slide per viewport (`min-w-full`, `snap-center`). Each slide is `role="group" aria-roledescription="slide" aria-label="{n} of {total}: {title}"`.
-- All slides present in the initial HTML so search/social crawlers see every story. No `display:none` gating.
-- Slide card reuses the existing `rounded-card` treatment on `var(--color-story)` with `Pill` for the eyebrow, `text-h2` title, `text-body-lg` body, optional metric block (large number + small label), optional logo (right side on desktop, above title on mobile), and `Button variant="primary"` CTA with `ArrowRight`.
+Layout:
+- Section: `bg-[var(--color-story)]`, `text-[var(--color-story-foreground)]`, `py-24 sm:py-32`, container `max-w-6xl`.
+- Intro line as centered `text-h2` above rows, `mb-20`.
+- Each row: `grid md:grid-cols-2 gap-12 lg:gap-20 items-center` with `mt-24 first:mt-0`. Even index → image left; odd → `md:[&>*:first-child]:order-2` (image right). Text column: `Pill` eyebrow, `text-h2` heading, `text-body-lg opacity-85` body, max-w-md.
+- Image wrapper: `relative rounded-[16px] overflow-hidden` with neon treatment:
+  - `border border-primary/25`
+  - `shadow-[0_0_0_1px_rgba(34,227,255,0.15),0_0_60px_-10px_rgba(34,227,255,0.35),inset_0_0_40px_rgba(34,227,255,0.08)]`
+  - `<img>` `w-full h-auto aspect-[3/2] object-cover` `loading="lazy" decoding="async"`
+- Optional overlay glass card: absolute bottom-4 left-4, `backdrop-blur-md bg-white/10 border border-white/15 rounded-xl px-3 py-2 text-body-sm`, shows `overlayStat.label`.
+- Wrap each row in `<Reveal>` (existing component) for fade/slide-in; `Reveal` already respects reduced motion via `useInView`. Add `delay={i*80}`.
 
-### Enhancement (JS)
-- Prev/next arrow buttons (icon buttons with `aria-label="Previous story" / "Next story"`, disabled state at ends when not looping).
-- Dot indicators: `role="tablist"`; each dot is a `button` with `aria-label="Go to slide N"` and `aria-current="true"` on active.
-- Keyboard: ArrowLeft/ArrowRight on the carousel region change slide; Tab moves through arrows, dots, then CTA of the active slide.
-- Swipe on mobile via native scroll-snap; active slide tracked with `IntersectionObserver` on each slide.
-- Programmatic navigation uses `track.scrollTo({ left: slide.offsetLeft, behavior: 'smooth' })`.
-- Auto-advance: 6s interval, loops. Pauses on `pointerenter`, `focusin`, when `document.hidden`, or when `window.matchMedia('(prefers-reduced-motion: reduce)').matches` (in which case never starts).
-- No layout shift before hydration — pre-JS the track is a horizontal scroller users can already swipe; arrows/dots render only after mount (or render always and remain harmless without JS).
+### 3. Wire in `src/routes/index.tsx`
 
-### Styling
-- Container: `mx-auto max-w-6xl` inside the existing section wrapper.
-- Arrows: circular, `border border-border/40`, positioned outside the card on desktop (`lg:-left-14 / lg:-right-14`), inside on mobile.
-- Dots: 8px circles, active = 24px pill, using `--color-story-foreground` at 100% / 40% opacity.
-- Sample tag: small uppercase `Pill` variant reading `sample — to verify` in the top-right of placeholder slides.
+- Remove `StoryScroll` import + JSX.
+- Import `StoryImageRows` + the three asset JSONs.
+- Replace with:
 
-## Slide data (defined in `src/routes/index.tsx`)
+```tsx
+<StoryImageRows
+  intro="As you scale, money gets complicated. We make it simple."
+  rows={[
+    { eyebrow: "The challenge", title: "Growth multiplies complexity.", body: "...", image: challengeImg, imageAlt: "Tangled network of connections", overlayStat: { label: "Every rail. Every provider." } },
+    { eyebrow: "The platform", title: "One regulated platform, every connection.", body: "...", image: platformImg, imageAlt: "Central hub with radiating connections", overlayStat: { label: "Real-time settlement" } },
+    { eyebrow: "The result", title: "Scale, safely, without slowing down.", body: "...", image: resultImg, imageAlt: "Ascending performance bars" },
+  ]}
+/>
+```
 
-1. Pharma (real, unchanged copy) — eyebrow "Live in production · Supply Chain Payments", metric optional (omit for now), href `#`.
-2. Trading platform (sample) — "Live in production · Trading & Payouts", headline about instant client withdrawals & affiliate payouts across 17+ countries.
-3. Retail chain (sample) — "Live in production · Omnichannel Acceptance", one acceptance layer across POS + online, settled in one place.
-4. Delivery platform (sample) — "Live in production · Fleet Funding", just-in-time courier card funding, no idle float.
-5. Youth club / association (sample) — "Live in production · Member Wallets", member wallets, digital dues, benefit distribution.
+- Remove `STORY_STEPS` constant.
 
-Placeholder slides get `sample: true`, no logo, and a plausible sample metric (e.g. "17+ countries", "1 settlement file", "0 idle float", "1-tap dues"). CTAs point to `#` for now.
+### 4. Cleanup
 
-## Integration
-- Replace lines 258–281 with:
-  ```tsx
-  <section className="px-4 sm:px-6 py-14 sm:py-20 border-t border-border">
-    <div className="mx-auto max-w-6xl">
-      <Reveal>
-        <SuccessStoryCarousel slides={SUCCESS_STORIES} />
-      </Reveal>
-    </div>
-  </section>
-  ```
-- Add `SUCCESS_STORIES` constant near the other data constants at the top of the file.
+Delete `src/components/gtp/StoryScroll.tsx` (no other consumers per codebase scan).
 
-## Out of scope
-- No routing to real case-study pages (CTA hrefs stay `#`).
-- No new design tokens; reuse existing story palette.
-- No changes to `StoryScroll` or other sections.
+### Verification
 
-## Verification
-- Playwright at 1280×1800 and 390×844: screenshots of slide 1, after clicking next twice, after pressing ArrowRight, and hover-pause behavior confirmed via console log of the interval state. Confirm all 5 slides exist in the initial SSR HTML via `curl` of `/` and `rg "sample — to verify"`.
+- `curl` `/` and confirm three `<img>` tags with the CDN URLs, alt text, and intro line present in SSR HTML.
+- Playwright at 1280×1800 and 390×844: screenshot the section to confirm alternating layout, neon border visible, no dead space, images render.
+- Typecheck.
+
+### Out of scope
+
+- No changes to nav, hero, or other sections.
+- No new design tokens (reuse `--color-story`, `--color-primary`).
+- No WebP conversion pipeline.
