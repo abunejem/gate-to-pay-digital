@@ -1,48 +1,62 @@
-## Light-mode design fixes
+## Two polish fixes
 
-Four contrast problems appear only in light mode, all caused by dark-navy foreground tokens sitting on top of hard-coded dark surfaces (hero, story, success story).
+### 1. Section headings clipped behind the sticky nav
 
-### 1. Sticky nav becomes invisible over dark sections
+The sticky header is 56–64px tall (`h-14 sm:h-16`) and sits over every section. When a user lands on `#anchor` or scrolls near a section, the heading currently ends up under the nav (e.g. "One integration. Every rail." is partially hidden).
 
-`StickyNav` uses `text-foreground/85` (dark navy in light mode) and the `glass` utility (nearly transparent in light mode). Over the dark hero (`#04131F`), dark story section (`#022A44`), and success story block, the nav links and Client Login read as dark-on-dark.
+**Fix (global, `src/styles.css`):** add a base rule so every section, h1, and h2 gets a `scroll-margin-top` matching the nav height:
 
-**Fix (`src/components/gtp/StickyNav.tsx`):** replace the `glass` class in the header wrapper with a background that stays legible in both themes:
-- scrolled: `bg-background/85 backdrop-blur-xl border-b border-border`
-- top:      `bg-background/55 backdrop-blur-md border-b border-transparent`
-
-Because `--background` is white in light mode and `#04131F` in dark mode, the nav becomes a readable band over any section in either theme without leaking the underlying dark surface through.
-
-### 2. Hero "Explore the platform" ghost button is invisible
-
-`Button` `variant="ghost"` uses `text-foreground` + `border-border`, both dark in light mode. On the desktop dark hero it disappears.
-
-**Fix (`src/routes/index.tsx`, line 131):** add desktop-only overrides so it reads as a light outlined button over the dark hero:
-```
-className="w-full sm:w-auto lg:text-white lg:border-white/30 lg:hover:bg-white/10 lg:hover:border-white/50"
+```css
+@layer base {
+  section, h1, h2 { scroll-margin-top: 96px; }
+}
 ```
 
-### 3. Hero TrustBar pills have unreadable text
+**Fix (per-section top padding, `src/routes/index.tsx`):** bump the vertical padding on the marquee-adjacent sections that currently read as tight against the nav on shorter viewports:
 
-Default `Pill` tone uses `text-foreground` + light `border-border` + faint `bg-glass`. Over the dark desktop hero, the label text is dark-on-dark.
+- Multi-rail signature section (`py-16 sm:py-24` → `pt-24 sm:pt-28 pb-16 sm:pb-24`)
 
-**Fix (`src/routes/index.tsx`, line 135):** pass a className to `TrustBar` and forward it to each `Pill` (small change in `TrustBar.tsx` to accept and spread a `pillClassName`), applying `lg:text-white/90 lg:border-white/25 lg:bg-white/[0.06]` so pills switch to on-dark styling only on the desktop hero.
+No other section changes; the standard `py-14 sm:py-20` already breathes enough once `scroll-margin-top` is in place.
 
-### 4. Client logo strip is barely visible in light mode
+### 2. StoryScroll right column: center content + supporting visual per step
 
-Logos use `text-muted-foreground` (light gray `#606161`) with `grayscale opacity-60` on a white background → almost invisible.
+`src/components/gtp/StoryScroll.tsx`
 
-**Fix (`src/components/gtp/ClientLogoStrip.tsx`):** raise the resting state to `opacity-80` and swap `text-muted-foreground` for `text-foreground/70`, keeping hover at full opacity/primary. Same feel in dark mode, materially more legible in light.
+The right column has `min-h-[280px]` and text pinned to the top, so most of the viewport below the paragraph is empty. Two changes:
+
+**a. Vertical centering.** Change the right column wrapper to a flex column centered vertically, and the outer grid already has `items-center`. Replace the fixed `min-h-[280px]` container with a full-height stack that centers its active step:
+
+```tsx
+<div className="relative h-full min-h-[420px] flex items-center">
+  {steps.map((s, i) => (
+    <div ... className="absolute inset-0 flex flex-col justify-center">
+      <Pill .../> <h3 .../> <p .../>
+      <StoryVisual kind={s.visual} className="mt-8" />
+    </div>
+  ))}
+</div>
+```
+
+**b. Supporting visual per step.** Add an optional `visual` field to the `StoryStep` interface (`"challenge" | "platform" | "result"`) and render a small inline SVG cluster underneath the paragraph:
+
+- **The challenge** — a tangled node cluster: 5 small circles connected by overlapping curved strokes in muted white, conveying "many rails, tangled".
+- **The platform** — a single primary-tinted hub circle with 4 clean radial lines out to small nodes (mini version of the multi-rail diagram, roughly 280×140).
+- **The result** — four aligned bars ascending left-to-right with a subtle primary underline, conveying "scale, safely".
+
+All three visuals share:
+- ~280px wide × 120–140px tall
+- stroke `var(--color-story-foreground)` at opacity 0.35, primary accent for the active nodes
+- pure static SVG (no animation) so reduced-motion is unaffected
+- rendered inline in `StoryScroll.tsx` as a small `StoryVisual` helper component (no new file)
+
+Wire the `STORY_STEPS` array in `src/routes/index.tsx` to pass `visual: "challenge" | "platform" | "result"` for the three existing steps.
 
 ### Verification
 
-Playwright at 1280×1800 in light mode, capturing:
-- top of page (hero + nav readability, ghost CTA, trust pills)
-- stats + logo strip
-- StoryScroll dark section with nav scrolled over it
-- Success story dark card with nav scrolled over it
-
-Confirm dark mode remains visually unchanged in the same viewports.
+Playwright at 1280×1800 (light + dark):
+- scroll to Multi-rail section — confirm "One integration. Every rail." heading is fully visible below the nav
+- scroll through StoryScroll — confirm each of the three steps is vertically centered and shows its supporting visual, with no empty column below the text
 
 ### Out of scope
 
-No token changes to `--foreground`, `--muted-foreground`, `--glass`, or the story/success dark surfaces. Hero 3D scene, layout, and copy stay as-is.
+No copy changes, no changes to the mobile fallback layout of StoryScroll (it already stacks cards), no changes to StickyNav height or behavior.
