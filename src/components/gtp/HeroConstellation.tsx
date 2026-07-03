@@ -248,8 +248,9 @@ function Scene({ reduced, variant }: SceneProps) {
   const nodes = variant === "mobile" ? [ALL_NODES[0], ALL_NODES[2]] : ALL_NODES;
   const particleCount = variant === "mobile" ? 60 : 150;
 
-  const corePos = useMemo(() => new THREE.Vector3(2.6, 0, -0.4), []);
-  const cardPos = useMemo(() => new THREE.Vector3(-0.2, 0.15, 0.8), []);
+  const corePos = useMemo(() => new THREE.Vector3(1.6, 0, -0.4), []);
+  const cardPos = useMemo(() => new THREE.Vector3(-0.6, 0.15, 0.8), []);
+
 
   // Rail curves: core -> card + each node
   const rails = useMemo(() => {
