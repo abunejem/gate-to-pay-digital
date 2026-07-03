@@ -3,16 +3,105 @@ import { cn } from "@/lib/utils";
 import { Pill } from "./primitives";
 import { prefersReducedMotion } from "@/hooks/use-in-view";
 
+export type StoryVisualKind = "challenge" | "platform" | "result";
+
 export interface StoryStep {
   eyebrow: string;
   title: string;
   body: string;
+  visual?: StoryVisualKind;
 }
 
 interface StoryScrollProps {
   heading: string;
   steps: StoryStep[];
   className?: string;
+}
+
+function StoryVisual({ kind, className }: { kind?: StoryVisualKind; className?: string }) {
+  if (!kind) return null;
+  const stroke = "var(--color-story-foreground)";
+  const primary = "var(--color-primary)";
+
+  if (kind === "challenge") {
+    // Tangled cluster: five nodes with crossing curves
+    return (
+      <svg viewBox="0 0 320 130" className={cn("w-full max-w-[320px] h-auto", className)} aria-hidden>
+        <g fill="none" stroke={stroke} strokeOpacity="0.35" strokeWidth="1.25">
+          <path d="M 40 30 C 120 20 200 110 280 100" />
+          <path d="M 40 100 C 130 110 200 30 280 30" />
+          <path d="M 40 30 C 120 90 200 40 280 100" />
+          <path d="M 40 100 C 140 40 220 90 280 30" />
+          <path d="M 40 65 C 120 65 200 65 280 65" />
+        </g>
+        {[
+          [40, 30], [40, 100], [40, 65], [160, 65], [280, 30], [280, 100], [280, 65],
+        ].map(([cx, cy], i) => (
+          <circle
+            key={i}
+            cx={cx}
+            cy={cy}
+            r={i === 3 ? 5 : 3.5}
+            fill={i === 3 ? primary : stroke}
+            fillOpacity={i === 3 ? 1 : 0.55}
+          />
+        ))}
+      </svg>
+    );
+  }
+
+  if (kind === "platform") {
+    // Central hub with clean radial spokes to four nodes
+    const rails = [
+      [280, 20],
+      [280, 65],
+      [280, 110],
+      [280, 155 - 20],
+    ];
+    return (
+      <svg viewBox="0 0 320 130" className={cn("w-full max-w-[320px] h-auto", className)} aria-hidden>
+        <circle cx="80" cy="65" r="34" fill="none" stroke={primary} strokeOpacity="0.35" strokeWidth="1" />
+        <circle cx="80" cy="65" r="18" fill={primary} fillOpacity="0.15" stroke={primary} strokeWidth="1.25" />
+        {rails.map(([x, y], i) => (
+          <g key={i}>
+            <path
+              d={`M 98 65 C 170 65 190 ${y} 260 ${y}`}
+              fill="none"
+              stroke={stroke}
+              strokeOpacity="0.45"
+              strokeWidth="1.25"
+            />
+            <rect x="260" y={y - 8} width="46" height="16" rx="4" fill="none" stroke={stroke} strokeOpacity="0.4" />
+          </g>
+        ))}
+      </svg>
+    );
+  }
+
+  // result: ascending bars with underline
+  const bars = [
+    { x: 20, h: 30 },
+    { x: 90, h: 55 },
+    { x: 160, h: 80 },
+    { x: 230, h: 108 },
+  ];
+  return (
+    <svg viewBox="0 0 320 130" className={cn("w-full max-w-[320px] h-auto", className)} aria-hidden>
+      <line x1="10" y1="120" x2="310" y2="120" stroke={primary} strokeOpacity="0.55" strokeWidth="1.5" />
+      {bars.map((b, i) => (
+        <rect
+          key={i}
+          x={b.x}
+          y={120 - b.h}
+          width="46"
+          height={b.h}
+          rx="4"
+          fill={i === bars.length - 1 ? primary : stroke}
+          fillOpacity={i === bars.length - 1 ? 0.9 : 0.28}
+        />
+      ))}
+    </svg>
+  );
 }
 
 export function StoryScroll({ heading, steps, className }: StoryScrollProps) {
@@ -68,6 +157,7 @@ export function StoryScroll({ heading, steps, className }: StoryScrollProps) {
                 <Pill tone="primary" className="mb-3">{s.eyebrow}</Pill>
                 <h3 className="text-h3" style={{ color: "var(--color-story-foreground)" }}>{s.title}</h3>
                 <p className="mt-2 text-body-sm opacity-80">{s.body}</p>
+                {s.visual && <StoryVisual kind={s.visual} className="mt-6 opacity-90" />}
               </div>
             ))}
           </div>
@@ -102,17 +192,18 @@ export function StoryScroll({ heading, steps, className }: StoryScrollProps) {
               ))}
             </div>
           </div>
-          <div className="relative min-h-[280px]">
+          <div className="relative h-full min-h-[460px] flex items-center">
             {steps.map((s, i) => (
               <div
                 key={i}
                 aria-hidden={i !== active}
-                className="absolute inset-0 transition-opacity duration-500"
+                className="absolute inset-0 flex flex-col justify-center transition-opacity duration-500"
                 style={{ opacity: i === active ? 1 : 0, pointerEvents: i === active ? "auto" : "none" }}
               >
-                <Pill tone="primary" className="mb-4">{s.eyebrow}</Pill>
+                <Pill tone="primary" className="mb-4 self-start">{s.eyebrow}</Pill>
                 <h3 className="text-h2" style={{ color: "var(--color-story-foreground)" }}>{s.title}</h3>
                 <p className="mt-4 text-body-lg opacity-85 max-w-xl">{s.body}</p>
+                {s.visual && <StoryVisual kind={s.visual} className="mt-10 opacity-90" />}
               </div>
             ))}
           </div>
