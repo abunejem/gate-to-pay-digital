@@ -53,7 +53,7 @@ const WHY = [
   { title: "Jordan-native, globally connected", body: "Local rails and the Mastercard network in one platform." },
 ];
 
-const STORY_ROWS = [
+const STORY_STEPS = [
   {
     eyebrow: "The challenge",
     title: "Growth multiplies complexity.",
