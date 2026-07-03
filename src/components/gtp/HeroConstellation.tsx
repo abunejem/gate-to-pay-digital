@@ -420,7 +420,7 @@ function Scene({ reduced, variant }: SceneProps) {
             ref={(el) => {
               if (el) pulseRefs.current[i] = el;
             }}
-            scale={[0.5, 0.5, 1]}
+            scale={[0.55, 0.55, 1]}
           >
             <spriteMaterial
               map={glowTex}
