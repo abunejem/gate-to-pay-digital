@@ -91,8 +91,8 @@ export function StickyNav() {
       className={cn(
         "sticky top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-300",
         scrolled
-          ? "glass border-b border-border"
-          : "bg-transparent border-b border-transparent",
+          ? "bg-background/85 backdrop-blur-xl border-b border-border"
+          : "bg-background/55 backdrop-blur-md border-b border-transparent",
       )}
       style={{ isolation: "isolate" }}
     >
