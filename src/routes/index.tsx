@@ -194,7 +194,7 @@ function HomePage() {
       />
 
       {/* Signature — Multi-rail diagram */}
-      <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-border">
+      <section className="px-4 sm:px-6 pt-24 sm:pt-28 pb-16 sm:pb-24 border-t border-border">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <div className="text-center">
