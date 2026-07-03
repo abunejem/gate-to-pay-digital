@@ -86,7 +86,7 @@ function HomePage() {
       <StickyNav />
 
       {/* Hero */}
-      <section className="relative ps-6 pe-6 pt-20 pb-24 overflow-hidden">
+      <section className="relative px-4 sm:px-6 pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
         <div
           className="motion-gradient-mesh pointer-events-none absolute inset-0 -z-10 opacity-60"
           style={{
@@ -111,11 +111,11 @@ function HomePage() {
             </p>
           </Reveal>
           <Reveal delay={240}>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Button size="lg">
+            <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center gap-3">
+              <Button size="lg" className="w-full sm:w-auto">
                 {t("hero.ctaPrimary")} <ArrowRight size={16} />
               </Button>
-              <Button size="lg" variant="ghost">{t("hero.ctaSecondary")}</Button>
+              <Button size="lg" variant="ghost" className="w-full sm:w-auto">{t("hero.ctaSecondary")}</Button>
             </div>
           </Reveal>
           <Reveal delay={320} className="mt-10">
