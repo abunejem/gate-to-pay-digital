@@ -25,8 +25,8 @@ export function MoneyFlowDiagram({ className }: { className?: string }) {
         <g>
           <rect x="20" y="160" width="150" height="60" rx="12"
             fill="var(--color-elevated)" stroke="var(--color-border)" />
-          <text x="95" y="195" textAnchor="middle"
-            fill="var(--color-foreground)" fontSize="14" fontWeight="500">
+          <text x="95" y="197" textAnchor="middle"
+            fill="var(--color-foreground)" fontSize="18" fontWeight="500">
             Your product
           </text>
         </g>
