@@ -57,7 +57,7 @@ export function StoryScroll({ heading, steps, className }: StoryScrollProps) {
   if (reduced || isMobile) {
     return (
       <section
-        className={cn("ps-6 pe-6 py-20", className)}
+        className={cn("px-4 sm:px-6 py-14 sm:py-20", className)}
         style={{ backgroundColor: "var(--color-story)", color: "var(--color-story-foreground)" }}
       >
         <div className="mx-auto max-w-6xl">
