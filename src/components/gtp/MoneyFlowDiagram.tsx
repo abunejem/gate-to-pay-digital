@@ -58,7 +58,7 @@ export function MoneyFlowDiagram({ className }: { className?: string }) {
         {/* Right paths hub -> rails (4 nodes) */}
         {RAILS.map((label, i) => {
           const y = 60 + i * 87;
-          const path = `M 458 190 C 560 190 560 ${y + 20} 640 ${y + 20}`;
+          const path = `M 472 190 C 560 190 560 ${y + 20} 640 ${y + 20}`;
           return (
             <g key={label}>
               <path d={path} stroke="var(--color-border-strong)" strokeWidth="1.5" fill="none" />
