@@ -245,10 +245,10 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Story scrollytelling */}
-      <StoryScroll
-        heading="As you scale, money gets complicated. We make it simple."
-        steps={STORY_STEPS}
+      {/* Story — image-led rows */}
+      <StoryImageRows
+        intro="As you scale, money gets complicated. We make it simple."
+        rows={STORY_ROWS}
       />
 
       {/* Signature — Multi-rail diagram */}
