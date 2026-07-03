@@ -12,6 +12,7 @@ import { ApiResponseCard } from "@/components/gtp/ApiResponseCard";
 import { Reveal } from "@/components/gtp/Reveal";
 import { Pill } from "@/components/gtp/primitives";
 import { StoryScroll } from "@/components/gtp/StoryScroll";
+import { SuccessStoryCarousel, type SuccessSlide } from "@/components/gtp/SuccessStoryCarousel";
 import { MoneyFlowDiagram } from "@/components/gtp/MoneyFlowDiagram";
 import { useT } from "@/lib/i18n";
 
