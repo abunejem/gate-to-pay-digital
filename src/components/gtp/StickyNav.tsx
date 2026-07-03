@@ -251,8 +251,8 @@ export function StickyNav() {
             {t("nav.pricing")}
           </a>
         </nav>
-        <div className="ms-auto flex items-center gap-3">
-          <ThemeToggle />
+        <div className="ms-auto flex items-center gap-2 sm:gap-3">
+          <span className="hidden sm:inline-flex"><ThemeToggle /></span>
           <a href="#" className="hidden sm:inline text-body-sm text-foreground/85 hover:text-foreground">
             {t("nav.signIn")}
           </a>
@@ -271,49 +271,61 @@ export function StickyNav() {
       </div>
 
       {mobileOpen && (
-        <div
-          id="mobile-nav-panel"
-          className="lg:hidden absolute inset-x-0 top-16 glass border-b border-border max-h-[calc(100vh-4rem)] overflow-y-auto"
-        >
-          <nav className="mx-auto max-w-7xl px-6 py-4 flex flex-col">
-            {mobileSections.map((section) => (
-              <details key={section.label} className="group border-b border-border/60 py-2">
-                <summary className="flex items-center justify-between cursor-pointer list-none py-2 text-body-sm font-medium text-foreground">
-                  {section.label}
-                  <ChevronDown size={16} className="transition-transform group-open:rotate-180 text-foreground/60" />
-                </summary>
-                <ul className="pt-1 pb-2 ps-2 flex flex-col">
-                  {section.items.map((item) => (
-                    <li key={item.label}>
-                      <a
-                        href={item.href ?? "#"}
-                        className="block py-2 text-body-sm text-foreground/75 hover:text-foreground"
-                        onClick={() => setMobileOpen(false)}
-                      >
-                        {item.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </details>
-            ))}
-            {[
-              { label: t("nav.developers"), href: "#" },
-              { label: t("nav.company"), href: "#" },
-              { label: t("nav.pricing"), href: "#" },
-              { label: t("nav.signIn"), href: "#" },
-            ].map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="py-3 text-body-sm font-medium text-foreground border-b border-border/60 last:border-b-0"
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-        </div>
+        <>
+          <button
+            type="button"
+            aria-label="Close menu"
+            className="lg:hidden fixed inset-0 top-14 sm:top-16 z-30 bg-background/40"
+            onClick={() => setMobileOpen(false)}
+          />
+          <div
+            id="mobile-nav-panel"
+            className="lg:hidden absolute inset-x-0 top-14 sm:top-16 z-40 glass border-b border-border max-h-[calc(100vh-3.5rem)] sm:max-h-[calc(100vh-4rem)] overflow-y-auto"
+          >
+            <nav className="mx-auto max-w-7xl px-4 sm:px-6 py-4 flex flex-col">
+              {mobileSections.map((section) => (
+                <details key={section.label} className="group border-b border-border/60 py-2">
+                  <summary className="flex items-center justify-between cursor-pointer list-none py-2 text-body-sm font-medium text-foreground">
+                    {section.label}
+                    <ChevronDown size={16} className="transition-transform group-open:rotate-180 text-foreground/60" />
+                  </summary>
+                  <ul className="pt-1 pb-2 ps-2 flex flex-col">
+                    {section.items.map((item) => (
+                      <li key={item.label}>
+                        <a
+                          href={item.href ?? "#"}
+                          className="block py-2 text-body-sm text-foreground/75 hover:text-foreground"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {item.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              ))}
+              {[
+                { label: t("nav.developers"), href: "#" },
+                { label: t("nav.company"), href: "#" },
+                { label: t("nav.pricing"), href: "#" },
+                { label: t("nav.signIn"), href: "#" },
+              ].map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="py-3 text-body-sm font-medium text-foreground border-b border-border/60 last:border-b-0"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
+              <div className="flex items-center justify-between pt-4">
+                <span className="text-body-sm text-muted-foreground">Theme</span>
+                <ThemeToggle />
+              </div>
+            </nav>
+          </div>
+        </>
       )}
     </header>
   );
