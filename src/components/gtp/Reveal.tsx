@@ -10,9 +10,10 @@ interface RevealProps {
   once?: boolean;
 }
 
-export function Reveal({ as: Tag = "div", children, className, delay = 0, once = true }: RevealProps) {
+export function Reveal({ as, children, className, delay = 0, once = true }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once });
+  const Tag: ElementType = as ?? "div";
   return (
     <Tag
       ref={ref as never}
