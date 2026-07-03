@@ -13,15 +13,16 @@ interface RevealProps {
 export function Reveal({ as, children, className, delay = 0, once = true }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once });
-  const Tag: ElementType = as ?? "div";
+  const Tag = (as ?? "div") as ElementType;
+  const TagAny = Tag as any;
   return (
-    <Tag
-      ref={ref as never}
+    <TagAny
+      ref={ref}
       className={cn("motion-reveal", className)}
       data-revealed={inView ? "true" : "false"}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}
-    </Tag>
+    </TagAny>
   );
 }
