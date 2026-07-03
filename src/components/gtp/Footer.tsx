@@ -25,9 +25,9 @@ export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="border-t border-border bg-elevated">
-      <div className="mx-auto max-w-7xl ps-6 pe-6 py-16">
-        <div className="grid gap-10 md:grid-cols-6">
-          <div className="md:col-span-2">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
+        <div className="grid gap-8 sm:gap-10 grid-cols-2 md:grid-cols-6">
+          <div className="col-span-2 md:col-span-2">
             <Logo variant="horizontal" height={32} />
             <p className="mt-4 text-body-sm text-muted-foreground max-w-xs">
               {t("brand.tagline")}. Central Bank of Jordan licensed since 2014.
@@ -48,7 +48,7 @@ export function Footer() {
             </div>
           ))}
         </div>
-        <div className="mt-12 pt-6 border-t border-border flex flex-wrap items-center justify-between gap-4 text-xs text-muted-foreground">
+        <div className="mt-12 pt-6 border-t border-border flex flex-col md:flex-row md:flex-wrap md:items-center md:justify-between gap-3 text-xs text-muted-foreground text-center md:text-start">
           <div>© {year} {t("brand.name")}. {t("footer.rights")}</div>
           <div>{t("footer.address")} · CBJ Licensed · Mastercard Principal Member · PCI DSS</div>
         </div>

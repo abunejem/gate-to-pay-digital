@@ -25,8 +25,8 @@ export function MoneyFlowDiagram({ className }: { className?: string }) {
         <g>
           <rect x="20" y="160" width="150" height="60" rx="12"
             fill="var(--color-elevated)" stroke="var(--color-border)" />
-          <text x="95" y="195" textAnchor="middle"
-            fill="var(--color-foreground)" fontSize="14" fontWeight="500">
+          <text x="95" y="197" textAnchor="middle"
+            fill="var(--color-foreground)" fontSize="18" fontWeight="500">
             Your product
           </text>
         </g>
@@ -40,11 +40,11 @@ export function MoneyFlowDiagram({ className }: { className?: string }) {
             fill="var(--color-elevated)"
             stroke="var(--color-primary)"
             strokeWidth="1.5" />
-          <text x="400" y="184" textAnchor="middle"
-            fill="var(--color-primary)" fontSize="12" fontWeight="600"
-            letterSpacing="1">GATE TO PAY</text>
-          <text x="400" y="204" textAnchor="middle"
-            fill="var(--color-muted-foreground)" fontSize="10">smart routing</text>
+          <text x="400" y="182" textAnchor="middle"
+            fill="var(--color-primary)" fontSize="16" fontWeight="600"
+            letterSpacing="1.2">GATE TO PAY</text>
+          <text x="400" y="206" textAnchor="middle"
+            fill="var(--color-muted-foreground)" fontSize="13">smart routing</text>
         </g>
 
         {/* Left path source -> hub */}
@@ -66,8 +66,8 @@ export function MoneyFlowDiagram({ className }: { className?: string }) {
               </circle>
               <rect x="640" y={y} width="140" height="40" rx="10"
                 fill="var(--color-elevated)" stroke="var(--color-border)" />
-              <text x="710" y={y + 25} textAnchor="middle"
-                fill="var(--color-foreground)" fontSize="13" fontWeight="500">
+              <text x="710" y={y + 26} textAnchor="middle"
+                fill="var(--color-foreground)" fontSize="17" fontWeight="500">
                 {label}
               </text>
             </g>
