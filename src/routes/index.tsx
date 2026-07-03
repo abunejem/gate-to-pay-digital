@@ -241,7 +241,7 @@ function HomePage() {
         <div className="mx-auto max-w-5xl">
           <Reveal>
             <div
-              className="rounded-card p-10 md:p-14"
+              className="rounded-card p-6 sm:p-10 md:p-14"
               style={{ backgroundColor: "var(--color-story)", color: "var(--color-story-foreground)" }}
             >
               <Pill tone="primary" className="mb-4">Live in production · Supply Chain Payments</Pill>
