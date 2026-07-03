@@ -49,10 +49,10 @@ export function MoneyFlowDiagram({ className }: { className?: string }) {
         </g>
 
         {/* Left path source -> hub */}
-        <path d="M 170 190 L 342 190"
+        <path d="M 170 190 L 328 190"
           stroke="var(--color-border-strong)" strokeWidth="1.5" fill="none" />
         <circle r="4" fill="var(--color-primary)" className="motion-flow-pulse">
-          <animateMotion dur="2.2s" repeatCount="indefinite" path="M 170 190 L 342 190" />
+          <animateMotion dur="2.2s" repeatCount="indefinite" path="M 170 190 L 328 190" />
         </circle>
 
         {/* Right paths hub -> rails (4 nodes) */}
