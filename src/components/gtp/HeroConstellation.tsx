@@ -103,11 +103,6 @@ function getCardTex() {
   x.fillStyle = "rgba(143,178,194,0.9)";
   x.font = '600 30px Inter, sans-serif';
   x.fillText("CARDHOLDER", cx + 50, cy + ch - 70);
-  // virtual
-  x.textAlign = "right";
-  x.fillStyle = "#22E3FF";
-  x.font = '700 34px Inter, sans-serif';
-  x.fillText("VIRTUAL", cx + cw - 50, cy + ch - 70);
   const t = new THREE.CanvasTexture(c);
   t.anisotropy = 8;
   _card = t;
