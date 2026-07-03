@@ -40,11 +40,11 @@ export function MoneyFlowDiagram({ className }: { className?: string }) {
             fill="var(--color-elevated)"
             stroke="var(--color-primary)"
             strokeWidth="1.5" />
-          <text x="400" y="184" textAnchor="middle"
-            fill="var(--color-primary)" fontSize="12" fontWeight="600"
-            letterSpacing="1">GATE TO PAY</text>
-          <text x="400" y="204" textAnchor="middle"
-            fill="var(--color-muted-foreground)" fontSize="10">smart routing</text>
+          <text x="400" y="182" textAnchor="middle"
+            fill="var(--color-primary)" fontSize="16" fontWeight="600"
+            letterSpacing="1.2">GATE TO PAY</text>
+          <text x="400" y="206" textAnchor="middle"
+            fill="var(--color-muted-foreground)" fontSize="13">smart routing</text>
         </g>
 
         {/* Left path source -> hub */}
